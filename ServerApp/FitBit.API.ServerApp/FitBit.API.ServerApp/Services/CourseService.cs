@@ -1,38 +1,109 @@
 ﻿namespace FitBit.API.ServerApp.Services;
 
+using FitBit.API.ServerApp.Interfaces;
+using FitBit.API.ServerApp.Interfaces.Repos;
 using FitBit.API.ServerApp.Models;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+using FitBit.API.ServerApp.Models.InputModels;
+using FitBit.API.ServerApp.Models.ViewModels;
 
-public class CourseService
+public class CourseService : BaseService<Course>, ICourseService
 {
-    private readonly IMongoCollection<Message> _messagessCollection;
-
-    public CourseService(
-        IOptions<FitBitDatabaseSettings> fitBitDatabaseSettings)
+    public CourseService(IBaseRepo<Course> baseRepo)
+        : base(baseRepo)
     {
-        var mongoClient = new MongoClient(
-            fitBitDatabaseSettings.Value.ConnectionString);
-
-        var mongoDatabase = mongoClient.GetDatabase(
-            fitBitDatabaseSettings.Value.DatabaseName);
-
-        _messagessCollection = mongoDatabase.GetCollection<Message>(
-            fitBitDatabaseSettings.Value.MessagesCollectionName);
     }
 
-    public async Task<List<Message>> GetAsync() =>
-    await _messagessCollection.Find(_ => true).ToListAsync();
+    public async Task<bool> CreateCourseAsync(CourseInputModel model)
+    {
+        if (model == null || model.Content == null || model.Title == null || model.Images == null)
+        {
+            return false;
+        }
 
-    public async Task<Message?> GetAsync(string id) =>
-        await _messagessCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+        var course = new Course
+        {
+            Content = model.Content,
+            Title = model.Title,
+            Images = model.Images
+        };
 
-    public async Task CreateAsync(Message newBook) =>
-        await _messagessCollection.InsertOneAsync(newBook);
+        await CreateAsync(course);
 
-    public async Task UpdateAsync(string id, Message updatedBook) =>
-        await _messagessCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
+        return true;
+    }
 
-    public async Task RemoveAsync(string id) =>
-        await _messagessCollection.DeleteOneAsync(x => x.Id == id);
+    public async Task<bool> DeleteCourseAsync(string id)
+    {
+        if (id == null)
+        {
+            return false;
+        }
+
+        await RemoveAsync(id);
+
+        return true;
+    }
+
+    public async Task<bool> EditCourseAsync(string id, CourseInputModel model)
+    {
+        if (id == null || model == null || model.Content == null || model.Title == null || model.Images == null)
+        {
+            return false;
+        }
+
+        var course = await GetAsync(id);
+
+        if (course == null)
+        {
+            return false;
+        }
+
+        course.Content = model.Content;
+        course.Title = model.Title;
+        course.Images = model.Images;
+
+        await UpdateAsync(id, course);
+
+        return true;
+    }
+
+    public async Task<List<CourseViewModel>> GetAllCoursesAsync()
+    {
+        var courses = await GetAsync();
+
+        if (courses == null)
+        {
+            return null;
+        }
+
+        var result = new List<CourseViewModel>();
+
+        foreach (var course in courses)
+        {
+            result.Add(ToViewModel(course));
+        }
+
+        return result;
+    }
+
+    public async Task<CourseViewModel> GetSingleCourseAsync(string id)
+    {
+        var course = await GetAsync(id);
+
+        if (course == null)
+        {
+            return null;
+        }
+
+        var result = ToViewModel(course);
+        return result;
+    }
+
+    private CourseViewModel ToViewModel(Course message)
+        => new()
+        {
+            Content = message.Content,
+            Title = message.Title,
+            Images = message.Images,
+        };
 }

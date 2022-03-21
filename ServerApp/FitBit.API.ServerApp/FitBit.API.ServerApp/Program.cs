@@ -1,9 +1,22 @@
+using FitBit.API.ServerApp.Interfaces;
+using FitBit.API.ServerApp.Interfaces.Repos;
 using FitBit.API.ServerApp.Models;
+using FitBit.API.ServerApp.Repos;
+using FitBit.API.ServerApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<FitBitDatabaseSettings>(
     builder.Configuration.GetSection("FitBitDatabase"));
+
+builder.Services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
+builder.Services.AddScoped(typeof(IMessageRepo), typeof(MessageRepo));
+builder.Services.AddScoped(typeof(ICourseRepo), typeof(CourseRepo));
+builder.Services.AddScoped(typeof(IUserRepo), typeof(UserRepo));
+builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
+builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
+builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
 
 // Add services to the container.
 builder.Services.AddRazorPages();

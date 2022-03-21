@@ -10,12 +10,8 @@ public enum Role
     User = 2,
 }
 
-public class User
+public class User : FitBitBaseModel
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
-
     [BsonElement("name")]
     public string Name { get; set; } = null!;
 

@@ -3,12 +3,8 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-public class Course
+public class Course : FitBitBaseModel
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string? Id { get; set; }
-
     [BsonElement("title")]
     public string Title { get; set; } = null!;
 
