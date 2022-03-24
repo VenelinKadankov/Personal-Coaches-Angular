@@ -1,0 +1,92 @@
+@import url("./reset.css");
+@import url("./typography.css");
+
+@import url("https://use.fontawesome.com/releases/v6.0.0/css/all.css");
+@import url("https://fonts.googleapis.com/css2?family=Hurricane&family=Lato&family=Montserrat&family=PT+Serif&display=swap");
+
+header {
+  padding: 1rem 5rem;
+  display: flex;
+  justify-content: space-between;
+  /* background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Fitness/Galleries/10+Fitness+Tips/Muscle-confusion-is-the-only-way-to-go..jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; */
+}
+
+.logo-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+i {
+  color: #357cfd;
+}
+
+.logo-text {
+  color: #357cfd;
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: Hurricane, Arial, sans-serif;
+}
+
+header ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.visitor-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-content: center;
+}
+
+header ul button {
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  color: #357cfd;
+  font-weight: 300;
+  font-size: 1rem;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+header ul button:hover {
+  color: #ffffff;
+  background-color: #357cfd;
+}
+
+header ul .login-button {
+  border: 1px solid #357cfd;
+  padding: 0.5rem 2rem;
+  border-radius: 30px;
+}
+
+/* User buttons-------------------- */
+.user-buttons {
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+}
+
+.user-buttons a {
+  text-decoration: none;
+  color: #357cfd;
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #357cfd;
+}
+
+.user-buttons a:hover {
+  color: #ffffff;
+  background-color: #357cfd;
+}
