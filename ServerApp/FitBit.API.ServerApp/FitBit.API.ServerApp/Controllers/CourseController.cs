@@ -14,21 +14,8 @@ public class CourseController : ControllerBase
         _courseService = courseService ?? throw new ArgumentNullException(nameof(courseService));
     }
 
-    [HttpGet("[action]")]
-    public async Task<IActionResult> Get()
-    {
-        var courses = await _courseService.GetAllCoursesAsync();
-
-        if (courses == null)
-        {
-            return BadRequest();
-        }
-
-        return Ok(courses);
-    }
-
-    [HttpGet("[action]/{id:length(24)}")]
-    public async Task<IActionResult> Get([FromQuery] string id)
+    [HttpGet("[action]")] // GET - "api/course/chosencourse?id=....."
+    public async Task<IActionResult> ChosenCourse([FromQuery]string id)
     {
         var course = await _courseService.GetSingleCourseAsync(id);
 
@@ -38,6 +25,19 @@ public class CourseController : ControllerBase
         }
 
         return Ok(course);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> All() // GET - "api/course/all"
+    {
+        var courses = await _courseService.GetAllCoursesAsync();
+
+        if (courses == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(courses);
     }
 
     [HttpPost]

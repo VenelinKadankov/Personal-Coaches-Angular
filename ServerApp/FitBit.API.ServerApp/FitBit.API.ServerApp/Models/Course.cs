@@ -11,6 +11,12 @@ public class Course : FitBitBaseModel
     [BsonElement("content")]
     public string Content { get; set; } = null!;
 
+    [BsonElement("creator")]
+    public string CreatedBy { get; set; } = null!;
+
+    [BsonElement("subscrb")]
+    public IEnumerable<string> Subscribers { get; set; } = null!;
+
     [BsonElement("imgs")]
     public IEnumerable<string> Images { get; set; } = null!;
 }
