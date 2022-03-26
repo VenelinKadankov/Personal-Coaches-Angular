@@ -8,8 +8,8 @@ using FitBit.API.ServerApp.Models.ViewModels;
 
 public class CourseService : BaseService<Course>, ICourseService
 {
-    public CourseService(IBaseRepo<Course> baseRepo)
-        : base(baseRepo)
+    public CourseService(ICourseRepo courseRepo)
+        : base(courseRepo)
     {
     }
 

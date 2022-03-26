@@ -8,10 +8,7 @@ header {
   padding: 1rem 5rem;
   display: flex;
   justify-content: space-between;
-  /* background-image: url("https://content.active.com/Assets/Active.com+Content+Site+Digital+Assets/Fitness/Galleries/10+Fitness+Tips/Muscle-confusion-is-the-only-way-to-go..jpg");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover; */
+  align-items: center;
 }
 
 .logo-area {

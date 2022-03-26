@@ -14,7 +14,7 @@ public class UserController : ControllerBase
         _userService = userService ?? throw new ArgumentNullException(nameof(userService));
     }
 
-    [HttpGet]
+    [HttpGet("[action]")]
     public async Task<IActionResult> Get()
     {
         var users = await _userService.GetAllUsersAsync();
@@ -27,7 +27,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpGet("{id:length(24)}")]
+    [HttpGet("[action]/{id:length(24)}")]
     public async Task<IActionResult> Get([FromQuery] string id)
     {
         var user = await _userService.GetSingleUserAsync(id);

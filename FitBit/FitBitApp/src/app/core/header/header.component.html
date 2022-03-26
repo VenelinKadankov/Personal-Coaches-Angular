@@ -3,17 +3,26 @@
         <p class="logo-text">Fit Bit</p>
         <i class="fa-solid fa-heart"></i>
     </div>
-    <!-- Buttons to change language -->
-    <!-- <ul class="header-buttons">
-        <li><button>EN</button></li>
-        <li><button>BG</button></li>
-        <li><button class="login-button">Log in</button></li>
-    </ul> -->
 
-    <ul class="user-buttons">
-        <li><a href="">My courses</a></li>
-        <li><a href="">Consultation</a></li>
-        <li><a href="">Somethin else(video)</a></li>
-        <li><a href="">My proile</a></li>
-    </ul>
+    <!-- TODO: When there is USER *ngIf for the navigation -->
+    <!-- <nav>
+        Buttons to change language
+        <ul class="header-buttons">
+            <li><a href="">Our coaches</a></li>
+            <li><button>EN</button></li>
+            <li><button>BG</button></li>
+            <li><button class="login-button">Log in</button></li>
+        </ul>
+    </nav> -->
+
+    <nav>
+        <ul class="user-buttons">
+            <li><a routerLink="/my-courses" routerLinkActive="active">My courses</a></li>
+            <li><a routerLink="/my-coaches" routerLinkActive="active">My coaches</a></li>
+            <li><a routerLink="/consultation" routerLinkActive="active">Consultation</a></li>
+            <!-- <li><a routerLink="/my-courses" routerLinkActive="active">Somethin else(video)</a></li> -->
+            <li><a routerLink="/profile" routerLinkActive="active">My profile</a></li>
+            <!-- <li><a [routerLink]="['details', user.id]" routerLinkActive="active">My proile</a></li> -->
+        </ul>
+    </nav>
 </header>

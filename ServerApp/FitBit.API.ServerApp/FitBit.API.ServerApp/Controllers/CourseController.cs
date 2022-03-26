@@ -14,7 +14,7 @@ public class CourseController : ControllerBase
         _courseService = courseService ?? throw new ArgumentNullException(nameof(courseService));
     }
 
-    [HttpGet]
+    [HttpGet("[action]")]
     public async Task<IActionResult> Get()
     {
         var courses = await _courseService.GetAllCoursesAsync();
@@ -27,7 +27,7 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
-    [HttpGet("{id:length(24)}")]
+    [HttpGet("[action]/{id:length(24)}")]
     public async Task<IActionResult> Get([FromQuery] string id)
     {
         var course = await _courseService.GetSingleCourseAsync(id);

@@ -5,7 +5,7 @@ using FitBit.API.ServerApp.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-public class BaseRepo<T> : IBaseRepo<T>
+public abstract class BaseRepo<T> : IBaseRepo<T>
     where T : FitBitBaseModel
 {
     protected IMongoCollection<T> _fitEntitiesCollection = null!;
