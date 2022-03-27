@@ -6,5 +6,9 @@ public class CourseViewModel
 
     public string? Content { get; set; }
 
-    public IEnumerable<string>? Images { get; set; }
+    public List<string>? Images { get; set; }
+
+    public string CreatedBy { get; set; } = null!;
+
+    public List<string> Subscribers { get; set; } = null!;
 }

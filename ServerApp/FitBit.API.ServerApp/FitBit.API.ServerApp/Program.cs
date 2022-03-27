@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<FitBitDatabaseSettings>(
     builder.Configuration.GetSection("FitBitDatabase"));
 
-//builder.Services.AddScoped(typeof(IBaseRepo<>), typeof(BaseRepo<>));
 builder.Services.AddScoped(typeof(IUserRepo), typeof(UserRepo));
 builder.Services.AddScoped(typeof(IMessageRepo), typeof(MessageRepo));
 builder.Services.AddScoped(typeof(ICourseRepo), typeof(CourseRepo));
@@ -39,7 +38,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-//app.UseEndpoints(endpoints => 
 app.MapControllers();
 
 app.Run();

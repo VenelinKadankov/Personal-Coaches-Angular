@@ -1,7 +1,8 @@
 export interface ICourse {
-    id: string;
+    // id: string;
     title: string;
     content: string;
-    cretedBy: string;
+    images: string[];
+    createdBy: string;
     subscribers: string[];
 }

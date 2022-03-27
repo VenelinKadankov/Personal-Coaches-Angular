@@ -8,10 +8,12 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   loadCourses() {
-    return this.http.get<ICourse[]>('https://localhost:44381/api/course/get');
+    let result = this.http.get<ICourse[]>('https://localhost:44381/api/course/all');
+    result.forEach(course => console.log(course.toString()));
+    return result;
   }
 
   loadCourse(id: string) {
-    return this.http.get<ICourse>(`https://localhost:44381/api/course/get?id=${id}`);
+    return this.http.get<ICourse>(`https://localhost:44381/api/course/chosencourse?id=${id}`);
   }
 }

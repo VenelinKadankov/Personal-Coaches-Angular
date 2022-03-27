@@ -1,5 +1,15 @@
-<section id="all-courses">
+<section id="my-courses">
     <p style="color: wheat;">my-courses works!</p>
     
+    <div class="error" *ngIf="errorLoadingCourses">Error loading courses! Check your connection!</div>
+    
+    <div *ngIf="courses">
+      <!-- <button (click)="reloadButtonHandler()">Reload</button>
+      <button (click)="searchButtonHandler(searchInput)">Search</button> -->
+      <div id="container">
+        <app-course-list-item *ngFor="let course of courses" [course]="course"></app-course-list-item>
+      </div>
+    </div>
+
     <h1></h1>
 </section>

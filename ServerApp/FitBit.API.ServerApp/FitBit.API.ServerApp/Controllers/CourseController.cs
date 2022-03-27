@@ -27,7 +27,7 @@ public class CourseController : ControllerBase
         return Ok(course);
     }
 
-    [HttpGet]
+    [HttpGet("[action]")]
     public async Task<IActionResult> All() // GET - "api/course/all"
     {
         var courses = await _courseService.GetAllCoursesAsync();

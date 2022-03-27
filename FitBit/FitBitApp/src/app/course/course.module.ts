@@ -4,6 +4,8 @@ import { MyCoursesComponent } from './my-courses/my-courses.component';
 import { CourseDetailsComponent } from './course-details/course-details.component';
 import { CourseCreateComponent } from './course-create/course-create.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
+import { CourseListItemComponent } from './course-list-item/course-list-item.component';
+import { CourseService } from './course.service';
 
 
 
@@ -12,10 +14,14 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
     MyCoursesComponent,
     CourseDetailsComponent,
     CourseCreateComponent,
-    CourseEditComponent
+    CourseEditComponent,
+    CourseListItemComponent
   ],
   imports: [
     CommonModule
+  ],
+  providers: [
+    CourseService
   ]
 })
 export class CourseModule { }

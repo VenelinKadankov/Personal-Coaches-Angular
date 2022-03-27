@@ -61,6 +61,7 @@ public class CourseService : BaseService<Course>, ICourseService
         course.Content = model.Content;
         course.Title = model.Title;
         course.Images = model.Images;
+       // course.Subscribers = model.su TODO: change the input model
 
         await UpdateAsync(id, course);
 
@@ -104,6 +105,8 @@ public class CourseService : BaseService<Course>, ICourseService
         {
             Content = message.Content,
             Title = message.Title,
-            Images = message.Images,
+            Images = message.Images.ToList(),
+            CreatedBy = message.CreatedBy,
+            Subscribers = message.Subscribers.ToList(),
         };
 }
