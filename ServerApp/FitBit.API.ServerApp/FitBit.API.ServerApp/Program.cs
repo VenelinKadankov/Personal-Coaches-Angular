@@ -9,6 +9,19 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<FitBitDatabaseSettings>(
     builder.Configuration.GetSection("FitBitDatabase"));
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("http://localhost:4200")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                      });
+});
+
 builder.Services.AddScoped(typeof(IUserRepo), typeof(UserRepo));
 builder.Services.AddScoped(typeof(IMessageRepo), typeof(MessageRepo));
 builder.Services.AddScoped(typeof(ICourseRepo), typeof(CourseRepo));
@@ -18,7 +31,9 @@ builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
 builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddJsonOptions(
+        options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
 
 var app = builder.Build();
 
@@ -35,6 +50,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthorization();
 
 app.MapRazorPages();

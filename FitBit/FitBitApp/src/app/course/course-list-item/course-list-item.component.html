@@ -1,1 +1,16 @@
-<p>{{course!.title}}</p>
+<p>{{ course!.title }}</p>
+
+<article id="course-item">
+  <h3>{{ course!.title }}</h3>
+  <div class="course-data">
+    <img [src]="course!.images[0]" alt="course-image" />
+    <div class="course-description">
+      <div>
+        <p>Author(should be another request)</p>
+        <p>{{ course!.content }}</p>
+      </div>
+      <!-- TODO: check if subscribed=> unsubscribe -->
+      <button>Subscribe</button>
+    </div>
+  </div>
+</article>

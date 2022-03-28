@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Models.InputModels;
+using System.Text.Json;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -36,6 +37,8 @@ public class CourseController : ControllerBase
         {
             return BadRequest();
         }
+
+        //var result = JsonSerializer.Serialize(courses, courses.GetType(), new JsonSerializerOptions());
 
         return Ok(courses);
     }

@@ -1,0 +1,36 @@
+#course-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 90%;
+    margin-left: 2.5%;
+    padding: 1rem 2rem 3rem 2rem;
+    border-radius: 20px;
+}
+
+#course-item img{
+    width: 35vw;
+    border-radius: 5px;
+}
+
+.course-data{
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.course-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button {
+    background-color: #357cfd;
+    color: #fff;
+    padding: 1rem;
+    border: none;
+    border-radius: 30px;
+}
