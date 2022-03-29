@@ -11,7 +11,7 @@ const routes: Routes = [
     // TODO: Guard
   },
   {
-    path: 'course/:id/details',
+    path: 'my-courses/:id',
     component: CourseDetailsComponent
   },
   {

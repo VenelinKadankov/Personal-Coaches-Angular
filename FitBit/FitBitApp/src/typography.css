@@ -2,7 +2,9 @@
 
 html {
   font-family: "Open Sans", sans-serif;
-  color: var(--color-blue);
+  color: #ffffff;
+  background-color: #357cfd;
+  position: relative;
 }
 
 h1,

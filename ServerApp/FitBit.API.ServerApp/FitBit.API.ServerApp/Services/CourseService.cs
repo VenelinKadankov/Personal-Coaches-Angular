@@ -100,13 +100,14 @@ public class CourseService : BaseService<Course>, ICourseService
         return result;
     }
 
-    private CourseViewModel ToViewModel(Course message)
+    private CourseViewModel ToViewModel(Course course)
         => new()
         {
-            Content = message.Content,
-            Title = message.Title,
-            Images = message.Images.ToList(),
-            CreatedBy = message.CreatedBy,
-            Subscribers = message.Subscribers.ToList(),
+            Id = course.Id,
+            Content = course.Content,
+            Title = course.Title,
+            Images = course.Images.ToList(),
+            CreatedBy = course.CreatedBy,
+            Subscribers = course.Subscribers.ToList(),
         };
 }
