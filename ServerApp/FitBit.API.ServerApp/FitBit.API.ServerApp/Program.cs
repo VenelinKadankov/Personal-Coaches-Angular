@@ -10,7 +10,6 @@ builder.Services.Configure<FitBitDatabaseSettings>(
     builder.Configuration.GetSection("FitBitDatabase"));
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-//builder.Services.AddCors();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,

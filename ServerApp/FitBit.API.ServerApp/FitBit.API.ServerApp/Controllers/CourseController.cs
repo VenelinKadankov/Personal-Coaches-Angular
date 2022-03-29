@@ -38,12 +38,10 @@ public class CourseController : ControllerBase
             return BadRequest();
         }
 
-        //var result = JsonSerializer.Serialize(courses, courses.GetType(), new JsonSerializerOptions());
-
         return Ok(courses);
     }
 
-    [HttpPost]
+    [HttpPost("[action]")]
     public async Task<IActionResult> Create([FromBody] CourseInputModel model)
     {
         var result = await _courseService.CreateCourseAsync(model);
@@ -56,7 +54,7 @@ public class CourseController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id:length(24)}")]
+    [HttpPut("[action]")] // old - {id:length(24)}
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] CourseInputModel model)
     {
         var result = await _courseService.EditCourseAsync(id, model);
@@ -69,7 +67,7 @@ public class CourseController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("{id:length(24)}")]
+    [HttpDelete("[action]")]  // old - {id:length(24)}
     public async Task<IActionResult> Delete([FromQuery] string id)
     {
         var result = await _courseService.DeleteCourseAsync(id);

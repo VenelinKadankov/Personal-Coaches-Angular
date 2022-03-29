@@ -15,7 +15,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> All()
     {
         var users = await _userService.GetAllUsersAsync();
 
@@ -27,8 +27,8 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpGet("[action]/{id:length(24)}")]
-    public async Task<IActionResult> Get([FromQuery] string id)
+    [HttpGet("[action]")]  // old - {id:length(24)}
+    public async Task<IActionResult> SingleUser([FromQuery] string id)
     {
         var user = await _userService.GetSingleUserAsync(id);
 
@@ -40,7 +40,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-    [HttpPost]
+    [HttpPost("[action]")]
     public async Task<IActionResult> Create([FromBody] UserInputModel model)
     {
         var result = await _userService.CreateUserAsync(model);
@@ -53,7 +53,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id:length(24)}")]
+    [HttpPut("[action]")]   // old - {id:length(24)}
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] UserInputModel model)
     {
         var result = await _userService.EditUserAsync(id, model);
@@ -66,7 +66,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("{id:length(24)}")]
+    [HttpDelete("[action]")]   // old - {id:length(24)}
     public async Task<IActionResult> Delete([FromQuery] string id)
     {
         var result = await _userService.DeleteUserAsync(id);

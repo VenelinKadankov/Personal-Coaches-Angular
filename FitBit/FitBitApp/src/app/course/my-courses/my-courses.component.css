@@ -1,4 +1,10 @@
 #my-courses{
     background-color: #357cfd;
     min-height: 100vh;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
 }

@@ -16,7 +16,7 @@ public class MessageController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> All()
     {
         var messages = await _messageService.GetAllMessagesAsync();
 
@@ -28,8 +28,8 @@ public class MessageController : ControllerBase
         return Ok(messages);
     }
 
-    [HttpGet("[action]/{id:length(24)}")]
-    public async Task<IActionResult> Get([FromQuery] string id)
+    [HttpGet("[action]")] // old - {id:length(24)}
+    public async Task<IActionResult> Message([FromQuery] string id)
     {
         var message = await _messageService.GetSingleMessageAsync(id);
 
@@ -54,7 +54,7 @@ public class MessageController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("[action]/{id:length(24)}")]
+    [HttpPut("[action]")] // old - {id:length(24)}
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody]MessageInputModel model)
     {
         var result = await _messageService.EditMessageAsync(id, model);
@@ -67,7 +67,7 @@ public class MessageController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("[action]/{id:length(24)}")]
+    [HttpDelete("[action]")]  // old - {id:length(24)}
     public async Task<IActionResult> Delete([FromQuery] string id)
     {
         var result = await _messageService.DeleteMessageAsync(id);
