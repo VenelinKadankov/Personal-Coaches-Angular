@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { CourseService } from '../course.service';
 import { ICourse } from 'src/app/Interfaces/course';
@@ -16,7 +17,7 @@ export class CourseDetailsComponent implements OnInit {
   errorLoadingCourse = false;
   deleteSuccess = false;
 
-  constructor(public courseService: CourseService, private route: ActivatedRoute) { }
+  constructor(public courseService: CourseService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')!;
@@ -45,7 +46,7 @@ export class CourseDetailsComponent implements OnInit {
         error: (error) => {
           console.error(error);
         },
-        complete: () => console.log('deletion was completed')
+        complete: () => this.router.navigate(['/my-courses'])
       });
     }
   }

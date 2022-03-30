@@ -15,7 +15,7 @@ const routes: Routes = [
     component: CourseDetailsComponent
   },
   {
-    path: 'course/:id/edit',
+    path: 'my-courses/:id/edit',
     component: CourseEditComponent,
    // canActivate: [ParamsActivate],
     // data: {

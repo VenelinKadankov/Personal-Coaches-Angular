@@ -39,7 +39,7 @@ export class MyCoursesComponent implements OnInit {
     .subscribe({
       next: (courses) => { this.courses = courses },
       error: (error) => {
-        console.error(error);
+        console.log(error);
         this.errorLoadingCourses = true;
       },
       complete: () => console.log('load courses stream completed')
