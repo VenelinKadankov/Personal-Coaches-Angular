@@ -20,4 +20,9 @@ export class CourseService {
   loadCourse(id: string) {
     return this.http.get<ICourse>(`https://localhost:44381/api/course/chosencourse?id=${id}`);
   }
+
+  deleteCourse(id: string){
+    return this.http.delete<boolean>(`https://localhost:44381/api/course/delete?id=${id}`);
+    // 'https://localhost:44381/api/course/delete?id=6236e81915fabad0c513fe0b'
+  }
 }

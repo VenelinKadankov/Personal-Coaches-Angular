@@ -1,5 +1,7 @@
 <section id="my-courses">
     <h2>Welcome to your courses!</h2>
+
+    <mat-progress-spinner *ngIf="!courses" value="50" mode="indeterminate"></mat-progress-spinner>
     
     <div class="error" *ngIf="errorLoadingCourses">Error loading courses! Check your connection!</div>
     
@@ -10,6 +12,4 @@
         <app-course-list-item *ngFor="let course of courses" [course]="course"></app-course-list-item>
       </div>
     </div>
-
-    <h1></h1>
 </section>

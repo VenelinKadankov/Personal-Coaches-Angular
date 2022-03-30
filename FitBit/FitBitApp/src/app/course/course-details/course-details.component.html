@@ -1,18 +1,24 @@
 <article class="course-full-details">
-    <h4>{{course!.title}}</h4>
-   <div class="course-desc">
-       <div class="course-desc-item">
-           <div *ngFor="let img of course!.images">
-               <img [src]="img" alt="course-image" />
-           </div>
-       </div>
-       <div class="course-desc-item">
-           <p>{{course!.content}}</p>
+  <mat-progress-spinner
+    *ngIf="!course"
+    value="50"
+    mode="indeterminate"
+  ></mat-progress-spinner>
 
-           <div class="course-btns-section">
-               <button type="button" class="course-button">Edit</button>
-               <button type="button" class="course-button">Delete</button>
-           </div>
-       </div>
-   </div> 
+  <h4>{{ course!.title }}</h4>
+  <div class="course-desc">
+    <div class="course-desc-item">
+      <div *ngFor="let img of course!.images">
+        <img [src]="img" alt="course-image" />
+      </div>
+    </div>
+    <div class="course-desc-item">
+      <p>{{ course!.content }}</p>
+
+      <div class="course-btns-section">
+        <button type="button" class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button>
+        <button type="button" class="course-button" (click)="onDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
 </article>

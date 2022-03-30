@@ -37,7 +37,7 @@ export class MyCoursesComponent implements OnInit {
 
     this.courseService.loadCourses()
     .subscribe({
-      next: (courses) => { console.log(courses); this.courses = courses },
+      next: (courses) => { this.courses = courses },
       error: (error) => {
         console.error(error);
         this.errorLoadingCourses = true;

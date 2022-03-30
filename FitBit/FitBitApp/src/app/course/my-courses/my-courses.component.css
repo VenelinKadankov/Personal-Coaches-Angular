@@ -1,3 +1,5 @@
+/* @import '~@angular/material/prebuilt-themes/pink-bluegrey.css'; */
+
 #my-courses{
     background-color: #357cfd;
     min-height: 100vh;

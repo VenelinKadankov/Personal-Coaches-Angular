@@ -7,6 +7,7 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseListItemComponent } from './course-list-item/course-list-item.component';
 import { CourseService } from './course.service';
 import { CoursesRoutingModule } from './course-routing.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -20,7 +21,8 @@ import { CoursesRoutingModule } from './course-routing.module';
   ],
   imports: [
     CommonModule,
-    CoursesRoutingModule
+    CoursesRoutingModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     CourseService

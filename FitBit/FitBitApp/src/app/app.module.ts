@@ -11,6 +11,7 @@ import { MessageModule } from './message/message.module';
 import { SharedModule } from './shared/shared.module';
 import { UserRoutingModule } from './user/user-routing.module';
 import { UserModule } from './user/user.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,9 +27,10 @@ import { UserModule } from './user/user.module';
     SharedModule,
     UserModule,
     CourseModule,
-    MessageModule
+    MessageModule,
+    BrowserAnimationsModule,
   ],
-  providers: [  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

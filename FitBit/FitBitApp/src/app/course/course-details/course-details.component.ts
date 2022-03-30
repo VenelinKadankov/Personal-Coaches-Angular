@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CourseService } from '../course.service';
@@ -14,6 +14,7 @@ export class CourseDetailsComponent implements OnInit {
 
   course: ICourse | undefined;
   errorLoadingCourse = false;
+  deleteSuccess = false;
 
   constructor(public courseService: CourseService, private route: ActivatedRoute) { }
 
@@ -35,5 +36,17 @@ export class CourseDetailsComponent implements OnInit {
       },
       complete: () => console.log('load courses stream completed')
     });
+  }
+
+  onDelete(): void {
+    if(this.id){
+      this.courseService.deleteCourse(this.id!).subscribe({
+        next: (result) => { this.deleteSuccess = result },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => console.log('deletion was completed')
+      });
+    }
   }
 }
