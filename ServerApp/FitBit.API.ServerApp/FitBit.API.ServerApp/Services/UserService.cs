@@ -107,6 +107,8 @@ public class UserService : BaseService<User>, IUserService
 
     public Task<bool> LoginUserAsync(UserLoginModel model)
     {
+        // TODO: Use IHashService to check the pass(should be in try{}catch{} as exceptions are expected)
+
         this._authService.Authenticate();
 
         return Task.FromResult(true);

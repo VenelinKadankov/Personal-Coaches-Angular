@@ -46,7 +46,7 @@ public class UserController : ControllerBase
     [HttpPost("[action]")]
     public async Task<IActionResult> Login([FromBody] UserLoginModel model)
     {
-        var result = await _userService.LoginUserAsync(model);
+        var result = await _userService.LoginUserAsync(model); // TODO: Add SHA256 and check if password hash is the same as in DB
 
         if (result == false)
         {
@@ -59,7 +59,7 @@ public class UserController : ControllerBase
     [HttpPost("[action]")]
     public async Task<IActionResult> Register([FromBody] UserInputModel model)
     {
-        var result = await _userService.CreateUserAsync(model);
+        var result = await _userService.CreateUserAsync(model); // TODO: Add SHA256 and hash the pass before DB
 
         if (result == false)
         {

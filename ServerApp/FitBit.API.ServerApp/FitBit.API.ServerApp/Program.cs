@@ -31,6 +31,7 @@ builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
 builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
 builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
 builder.Services.AddSingleton(typeof(IAuthService), typeof(AuthService));
+builder.Services.AddSingleton(typeof(IHashService), typeof(HashService));
 
 // Add services to the container.
 builder.Services.AddRazorPages()
