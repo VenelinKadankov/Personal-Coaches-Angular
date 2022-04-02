@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map } from 'rxjs/operators';
 
 import { ICourse } from "src/app/Interfaces/course";
+import { environment } from "src/environments/environment";
+
+const apiURL = environment.apiURL;
 
 // import { Observable, throwError } from 'rxjs';
 // import { catchError, retry } from 'rxjs/operators';
@@ -13,16 +15,15 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   loadCourses() {
-    let result = this.http.get<any>('https://localhost:44381/api/course/all');
+    let result = this.http.get<any>(`${apiURL}/course/all`);
     return result;
   }
 
   loadCourse(id: string) {
-    return this.http.get<ICourse>(`https://localhost:44381/api/course/chosencourse?id=${id}`);
+    return this.http.get<ICourse>(`${apiURL}/course/chosencourse?id=${id}`);
   }
 
   deleteCourse(id: string){
-    return this.http.delete<boolean>(`https://localhost:44381/api/course/delete?id=${id}`);
-    // 'https://localhost:44381/api/course/delete?id=6236e81915fabad0c513fe0b'
+    return this.http.delete<boolean>(`${apiURL}/course/delete?id=${id}`);
   }
 }

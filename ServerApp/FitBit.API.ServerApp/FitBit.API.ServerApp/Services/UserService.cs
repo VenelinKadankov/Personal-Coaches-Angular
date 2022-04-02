@@ -8,9 +8,11 @@ using FitBit.API.ServerApp.Models.ViewModels;
 
 public class UserService : BaseService<User>, IUserService
 {
-    public UserService(IUserRepo userRepo) 
+    private readonly IAuthService _authService;
+    public UserService(IUserRepo userRepo, IAuthService authService) 
         : base(userRepo)
     {
+        this._authService = authService;
     }
 
     public async Task<bool> CreateUserAsync(UserInputModel model)
@@ -103,13 +105,20 @@ public class UserService : BaseService<User>, IUserService
         return result;
     }
 
-    private UserViewModel ToViewModel(User message)
+    public Task<bool> LoginUserAsync(UserLoginModel model)
+    {
+        this._authService.Authenticate();
+
+        return Task.FromResult(true);
+    }
+
+    private static UserViewModel ToViewModel(User message)
         => new()
         {
             Name = message.Name,
             Email = message.Email,
             IsAdmin = message.IsAdmin,
-            Role = message.Role,
+            Role = message.Role.ToString(),
             Courses = message.Courses,
         };
 }

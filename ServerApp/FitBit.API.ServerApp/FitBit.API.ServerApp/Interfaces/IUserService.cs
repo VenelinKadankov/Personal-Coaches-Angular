@@ -12,6 +12,8 @@ public interface IUserService : IBaseService<User>
 
     public Task<bool> CreateUserAsync(UserInputModel message);
 
+    public Task<bool> LoginUserAsync(UserLoginModel model);
+
     public Task<bool> EditUserAsync(string id, UserInputModel message);
 
     public Task<bool> DeleteUserAsync(string id);

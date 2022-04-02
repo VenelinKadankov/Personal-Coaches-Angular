@@ -1,5 +1,6 @@
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Interfaces.Repos;
+using FitBit.API.ServerApp.Middlewares;
 using FitBit.API.ServerApp.Models;
 using FitBit.API.ServerApp.Repos;
 using FitBit.API.ServerApp.Services;
@@ -10,6 +11,7 @@ builder.Services.Configure<FitBitDatabaseSettings>(
     builder.Configuration.GetSection("FitBitDatabase"));
 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -28,6 +30,7 @@ builder.Services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
 builder.Services.AddScoped(typeof(IUserService), typeof(UserService));
 builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
 builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
+builder.Services.AddSingleton(typeof(IAuthService), typeof(AuthService));
 
 // Add services to the container.
 builder.Services.AddRazorPages()
@@ -50,9 +53,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseCors(MyAllowSpecificOrigins);
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+app.UseMiddleware(typeof(AuthMiddleware));
 
 app.Run();

@@ -3,6 +3,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Models.InputModels;
+using FitBit.API.ServerApp.Attributes;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,6 +16,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("[action]")]
+    [NeedsUserId]
     public async Task<IActionResult> All()
     {
         var users = await _userService.GetAllUsersAsync();
@@ -27,8 +29,9 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-    [HttpGet("[action]")]  // old - {id:length(24)}
-    public async Task<IActionResult> SingleUser([FromQuery] string id)
+    [HttpGet("[action]")] // old - {id:length(24)}, TODO- take id from header, not from query
+    [NeedsUserId] 
+    public async Task<IActionResult> CurrentUser([FromQuery] string id)
     {
         var user = await _userService.GetSingleUserAsync(id);
 
@@ -41,7 +44,20 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("[action]")]
-    public async Task<IActionResult> Create([FromBody] UserInputModel model)
+    public async Task<IActionResult> Login([FromBody] UserLoginModel model)
+    {
+        var result = await _userService.LoginUserAsync(model);
+
+        if (result == false)
+        {
+            return BadRequest();
+        }
+
+        return Ok(true);
+    }
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> Register([FromBody] UserInputModel model)
     {
         var result = await _userService.CreateUserAsync(model);
 
@@ -54,6 +70,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("[action]")]   // old - {id:length(24)}
+    [NeedsUserId]
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] UserInputModel model)
     {
         var result = await _userService.EditUserAsync(id, model);
@@ -67,6 +84,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("[action]")]   // old - {id:length(24)}
+    [NeedsUserId]
     public async Task<IActionResult> Delete([FromQuery] string id)
     {
         var result = await _userService.DeleteUserAsync(id);
