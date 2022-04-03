@@ -4,4 +4,5 @@ using FitBit.API.ServerApp.Models;
 
 public interface IUserRepo : IBaseRepo<User>
 {
+    public Task<User> GetByUsernameAsync(string userName);
 }

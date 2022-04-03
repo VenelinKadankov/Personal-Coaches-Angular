@@ -9,10 +9,13 @@ using FitBit.API.ServerApp.Models.ViewModels;
 public class UserService : BaseService<User>, IUserService
 {
     private readonly IAuthService _authService;
-    public UserService(IUserRepo userRepo, IAuthService authService) 
+    private readonly IHashService _hashService;
+
+    public UserService(IUserRepo userRepo, IAuthService authService, IHashService hashService)
         : base(userRepo)
     {
-        this._authService = authService;
+        this._authService = authService ?? throw new ArgumentNullException(nameof(authService));
+        this._hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
     }
 
     public async Task<bool> CreateUserAsync(UserInputModel model)
@@ -22,12 +25,20 @@ public class UserService : BaseService<User>, IUserService
             return false;
         }
 
+        var dbModel = await (this._baseRepo as IUserRepo)?.GetByUsernameAsync(model.Name);
+
+        if (dbModel != null)
+        {
+            return false;
+        }
+
         var user = new User
         {
             Name = model.Name,
+            Password = this._hashService.GetHash(model.Password),
             Email = model.Email,
             Courses = model.Courses,
-            Role = model.Role,
+            Role = (Role)Enum.Parse(typeof(Role), model.Role, true),
             IsAdmin = model.IsAdmin,
         };
 
@@ -63,7 +74,7 @@ public class UserService : BaseService<User>, IUserService
         }
 
         user.IsAdmin = model.IsAdmin;
-        user.Role = model.Role;
+        user.Role = (Role)Enum.Parse(typeof(Role), model.Role, true);
         user.Courses = model.Courses;
         user.Name = model.Name;
         user.Email = model.Email;
@@ -105,13 +116,37 @@ public class UserService : BaseService<User>, IUserService
         return result;
     }
 
-    public Task<bool> LoginUserAsync(UserLoginModel model)
+    public async Task<bool> LoginUserAsync(UserLoginModel model)
     {
-        // TODO: Use IHashService to check the pass(should be in try{}catch{} as exceptions are expected)
+        if (model == null || model.UserName == null || model.Password == null)
+        {
+            return false;
+        }
+
+        var user = await (this._baseRepo as IUserRepo)?.GetByUsernameAsync(model.UserName);
+
+        if (user == null)
+        {
+            return false;
+        }
+
+        try
+        {
+            var passIsValid = this._hashService.CompareHash(_hashService.GetHash(model.Password), user.Password);
+
+            if (!passIsValid)
+            {
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            return false;
+        };
 
         this._authService.Authenticate();
 
-        return Task.FromResult(true);
+        return true;
     }
 
     private static UserViewModel ToViewModel(User message)

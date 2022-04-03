@@ -8,7 +8,7 @@ public class BaseService<T> : IBaseService<T>
     where T : FitBitBaseModel
 {
    
-    private readonly IBaseRepo<T> _baseRepo;
+    protected readonly IBaseRepo<T> _baseRepo;
 
     protected BaseService(IBaseRepo<T> baseRepo)
     {
