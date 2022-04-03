@@ -48,12 +48,28 @@ public class UserController : ControllerBase
     {
         var result = await _userService.LoginUserAsync(model);
 
+        if (result == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(result);
+    }
+
+    [HttpPost("[action]")]
+    [NeedsUserId]
+    public async Task<IActionResult> Logout()
+    {
+        this.HttpContext.Request.Headers.TryGetValue("uid", out var userId);  // TODO: Dont need that
+
+        var result = await _userService.LogoutUserAsync();
+
         if (result == false)
         {
             return BadRequest();
         }
 
-        return Ok(true);
+        return Ok(result);
     }
 
     [HttpPost("[action]")]

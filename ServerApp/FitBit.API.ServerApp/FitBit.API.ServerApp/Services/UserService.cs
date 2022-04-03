@@ -116,18 +116,18 @@ public class UserService : BaseService<User>, IUserService
         return result;
     }
 
-    public async Task<bool> LoginUserAsync(UserLoginModel model)
+    public async Task<UserViewModel> LoginUserAsync(UserLoginModel model)
     {
         if (model == null || model.UserName == null || model.Password == null)
         {
-            return false;
+            return null;
         }
 
         var user = await (this._baseRepo as IUserRepo)?.GetByUsernameAsync(model.UserName);
 
         if (user == null)
         {
-            return false;
+            return null;
         }
 
         try
@@ -136,17 +136,17 @@ public class UserService : BaseService<User>, IUserService
 
             if (!passIsValid)
             {
-                return false;
+                return null;
             }
         }
         catch (Exception ex)
         {
-            return false;
+            return null;
         };
 
         this._authService.Authenticate();
 
-        return true;
+        return ToViewModel(user);
     }
 
     private static UserViewModel ToViewModel(User message)
@@ -158,4 +158,11 @@ public class UserService : BaseService<User>, IUserService
             Role = message.Role.ToString(),
             Courses = message.Courses,
         };
+
+    public Task<bool> LogoutUserAsync()
+    {
+        this._authService.Logout();
+
+        return Task.FromResult(true);
+    }
 }

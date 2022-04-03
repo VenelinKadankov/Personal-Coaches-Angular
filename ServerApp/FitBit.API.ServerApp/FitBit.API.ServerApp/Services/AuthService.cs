@@ -12,4 +12,11 @@ public class AuthService : IAuthService
 
         return true;
     }
+
+    public bool Logout()
+    {
+        this.IsAuthenticated = false;
+
+        return true;
+    }
 }

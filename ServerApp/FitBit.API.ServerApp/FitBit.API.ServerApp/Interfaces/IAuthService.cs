@@ -5,4 +5,6 @@ public interface IAuthService
     bool IsAuthenticated { get; }
 
     bool Authenticate();
+
+    bool Logout();
 }

@@ -12,7 +12,9 @@ public interface IUserService : IBaseService<User>
 
     public Task<bool> CreateUserAsync(UserInputModel message);
 
-    public Task<bool> LoginUserAsync(UserLoginModel model);
+    public Task<UserViewModel> LoginUserAsync(UserLoginModel model);
+
+    public Task<bool> LogoutUserAsync();
 
     public Task<bool> EditUserAsync(string id, UserInputModel message);
 
