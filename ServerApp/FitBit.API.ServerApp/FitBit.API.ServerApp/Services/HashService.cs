@@ -2,6 +2,7 @@
 
 using System.Text;
 using System.Security.Cryptography;
+
 using FitBit.API.ServerApp.Interfaces;
 
 public class HashService : IHashService

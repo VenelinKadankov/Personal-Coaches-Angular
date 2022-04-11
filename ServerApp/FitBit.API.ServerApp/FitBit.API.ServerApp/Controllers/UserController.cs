@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Models.InputModels;
 using FitBit.API.ServerApp.Attributes;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
@@ -19,7 +21,7 @@ public class UserController : ControllerBase
     [NeedsUserId]
     public async Task<IActionResult> All()
     {
-        var users = await _userService.GetAllUsersAsync();
+        var users = await _userService.GetAllUserViewModelsAsync();
 
         if (users == null)
         {
@@ -60,7 +62,7 @@ public class UserController : ControllerBase
     [NeedsUserId]
     public async Task<IActionResult> Logout()
     {
-        this.HttpContext.Request.Headers.TryGetValue("uid", out var userId);  // TODO: Dont need that
+        this.HttpContext.Request.Headers.TryGetValue("uid", out var userId);  // TODO: Dont need that anymore
 
         var result = await _userService.LogoutUserAsync();
 

@@ -1,5 +1,10 @@
 ﻿namespace FitBit.API.ServerApp.Services;
 
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Interfaces.Repos;
 using FitBit.API.ServerApp.Models;
@@ -10,12 +15,14 @@ public class UserService : BaseService<User>, IUserService
 {
     private readonly IAuthService _authService;
     private readonly IHashService _hashService;
+    public IConfiguration _configuration;
 
-    public UserService(IUserRepo userRepo, IAuthService authService, IHashService hashService)
+    public UserService(IUserRepo userRepo, IAuthService authService, IHashService hashService, IConfiguration config)
         : base(userRepo)
     {
-        this._authService = authService ?? throw new ArgumentNullException(nameof(authService));
-        this._hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
+        _authService = authService ?? throw new ArgumentNullException(nameof(authService));
+        _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
+        _configuration = config ?? throw new ArgumentNullException(nameof(config));
     }
 
     public async Task<bool> CreateUserAsync(UserInputModel model)
@@ -84,7 +91,7 @@ public class UserService : BaseService<User>, IUserService
         return true;
     }
 
-    public async Task<List<UserViewModel>> GetAllUsersAsync()
+    public async Task<List<UserViewModel>> GetAllUserViewModelsAsync()
     {
         var users = await GetAsync();
 
@@ -164,5 +171,43 @@ public class UserService : BaseService<User>, IUserService
         this._authService.Logout();
 
         return Task.FromResult(true);
+    }
+
+    public async Task<string> CreateTokenAsync(string userName, string password)
+    {
+        var user = await GetUserAsync(userName, password);
+
+        if (user != null)
+        {
+            var claims = new[] {
+                        new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
+                        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                        new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                        new Claim("UserId", user.Id!),
+                        new Claim("DisplayName", user.Name),
+                        new Claim("UserName", user.Name),
+                        new Claim("Email", user.Email)
+                    };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddMinutes(10),
+                signingCredentials: signIn);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        return null;
+    }
+
+    private async Task<User> GetUserAsync(string userName, string password)
+    {
+        var allUsers = await GetAsync();
+
+        return allUsers.FirstOrDefault(u => u.Name == userName && u.Password == _hashService.GetHash(password));
     }
 }

@@ -1,3 +1,7 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Interfaces.Repos;
 using FitBit.API.ServerApp.Middlewares;
@@ -32,6 +36,20 @@ builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
 builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
 builder.Services.AddSingleton(typeof(IAuthService), typeof(AuthService));
 builder.Services.AddSingleton(typeof(IHashService), typeof(HashService));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages()

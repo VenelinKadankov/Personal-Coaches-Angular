@@ -1,6 +1,7 @@
 ﻿namespace FitBit.API.ServerApp.Controllers;
 
 using Microsoft.AspNetCore.Mvc;
+
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Models.InputModels;
 

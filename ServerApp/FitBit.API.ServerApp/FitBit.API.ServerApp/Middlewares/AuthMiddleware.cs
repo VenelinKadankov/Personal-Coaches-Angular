@@ -1,6 +1,7 @@
 ﻿namespace FitBit.API.ServerApp.Middlewares;
 
 using JetBrains.Annotations;
+
 using FitBit.API.ServerApp.Attributes;
 using FitBit.API.ServerApp.Interfaces;
 

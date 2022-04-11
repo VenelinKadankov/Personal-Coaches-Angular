@@ -6,7 +6,9 @@ using FitBit.API.ServerApp.Models.ViewModels;
 
 public interface IUserService : IBaseService<User>
 {
-    public Task<List<UserViewModel>> GetAllUsersAsync();
+    public Task<List<UserViewModel>> GetAllUserViewModelsAsync();
+
+    public Task<string> CreateTokenAsync(string userName, string password);
 
     public Task<UserViewModel> GetSingleUserAsync(string id);
 

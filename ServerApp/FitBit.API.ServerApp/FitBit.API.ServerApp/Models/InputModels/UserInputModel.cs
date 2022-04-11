@@ -10,7 +10,7 @@ public class UserInputModel
 
     public bool IsAdmin { get; set; }
 
-    public string Role { get; set; }
+    public string Role { get; set; } = null!;
 
     public IEnumerable<string> Courses { get; set; } = new List<string>();
 }
