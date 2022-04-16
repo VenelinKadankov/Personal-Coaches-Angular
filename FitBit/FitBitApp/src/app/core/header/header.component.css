@@ -99,6 +99,16 @@ header ul .login-button {
   background-color: #ffffff;
 }
 
+.logout-button{
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 300;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+}
+
 a.active{
   background-color: #6ea0fb;
 }

@@ -1,37 +1,47 @@
 <header>
-    <div class="logo-area">
-        <a class="logo-text" routerLink="/home">Fit Bit</a>
-        <!-- <i class="fa-solid fa-heart"></i> -->
-        <fa-icon [icon]="faHearth"></fa-icon>
-    </div>
+  <div class="logo-area">
+    <a class="logo-text" routerLink="/home">Fit Bit</a>
+    <!-- <i class="fa-solid fa-heart"></i> -->
+    <fa-icon [icon]="faHearth"></fa-icon>
+  </div>
 
-    <!--       <ul *ngIf="isLogged">
+  <!--       <ul *ngIf="isLogged">
         <li routerLink="/profile">{{username}}'s profile</li>
         <li (click)="logout()">Logout</li>
       </ul> -->
-    <!-- TODO: When there is USER *ngIf for the navigation -->
-    <nav>
-        <!-- Buttons to change language -->
+  <!-- TODO: When there is USER *ngIf for the navigation -->
+  <nav>
+    <!-- Buttons to change language -->
 
-        <ul class="user-buttons">
-            <li><a routerLink="/coaches">Coaches</a></li>
-            <li><a routerLink="/consultation" routerLinkActive="active">Consultation</a></li>
-        </ul>
+    <ul class="user-buttons">
+      <li><a routerLink="/coaches">Coaches</a></li>
+      <li>
+        <a routerLink="/consultation" routerLinkActive="active">Consultation</a>
+      </li>
 
-        <ul class="user-buttons" *ngIf="!isLogged">
-            <!-- <li><button>EN</button></li>
+      <!-- <li><button>EN</button></li>
             <li><button>BG</button></li> -->
-            <li><a  routerLink="/login">Log in</a></li>
-            <li><a routerLink="/register">Register</a></li>
-        </ul>
+      <ng-container *ngIf="!isLogged">
+        <li><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/register">Register</a></li>
+      </ng-container>
 
-        <ul class="user-buttons" *ngIf="isLogged">
-            <li><a routerLink="/my-courses" routerLinkActive="active">My courses</a></li>
-            <li><a routerLink="/my-coaches" routerLinkActive="active">My coaches</a></li>
-            <!-- <li><a routerLink="/my-courses" routerLinkActive="active">Somethin else(video)</a></li> -->
-            <li><a routerLink="/profile" routerLinkActive="active">My profile</a></li>
-            <li><button class="register-button"  (click)="logout()">Logout</button></li>
-            <!-- <li><a [routerLink]="['details', user.id]" routerLinkActive="active">My proile</a></li> -->
-        </ul>
-    </nav>
+      <ng-container class="user-buttons" *ngIf="isLogged">
+        <li>
+          <a routerLink="/my-courses" routerLinkActive="active">My courses</a>
+        </li>
+        <li>
+          <a routerLink="/my-coaches" routerLinkActive="active">My coaches</a>
+        </li>
+        <!-- <li><a routerLink="/my-courses" routerLinkActive="active">Somethin else(video)</a></li> -->
+        <li>
+          <a routerLink="/profile" routerLinkActive="active">My profile</a>
+        </li>
+        <li>
+          <a (click)="logout()">Logout</a>
+        </li>
+        <!-- <li><a [routerLink]="['details', user.id]" routerLinkActive="active">My proile</a></li> -->
+      </ng-container>
+    </ul>
+  </nav>
 </header>

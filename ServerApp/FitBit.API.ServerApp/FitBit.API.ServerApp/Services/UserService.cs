@@ -123,7 +123,7 @@ public class UserService : BaseService<User>, IUserService
         return result;
     }
 
-    public async Task<UserViewModel> LoginUserAsync(UserLoginModel model)
+    public async Task<UserTokenModel> LoginUserAsync(UserLoginModel model)
     {
         if (model == null || model.Email == null || model.Password == null)
         {
@@ -153,7 +153,13 @@ public class UserService : BaseService<User>, IUserService
 
         this._authService.Authenticate();
 
-        return ToViewModel(user);
+        var result = new UserTokenModel 
+        { 
+            User = ToViewModel(user), 
+            Token = await CreateTokenAsync(model.Email, model.Password) 
+        };
+
+        return result;
     }
 
     private static UserViewModel ToViewModel(User message)

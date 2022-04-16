@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Models.InputModels;
+using System.Text.Json;
 
 [ApiController]
 [Route("api/token")]
@@ -25,7 +26,7 @@ public class JwtTokenController : ControllerBase
 
             if (token != null)
             {
-                return Ok(token);
+                return Ok(JsonSerializer.Serialize(token));
             }
             else
             {
