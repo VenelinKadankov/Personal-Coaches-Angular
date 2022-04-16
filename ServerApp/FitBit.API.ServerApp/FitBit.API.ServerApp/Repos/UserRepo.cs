@@ -14,6 +14,6 @@ public class UserRepo : BaseRepo<User>, IUserRepo
             fitBitDatabaseSettings.Value.UsersCollectionName);
     }
 
-    public async Task<User> GetByUsernameAsync(string userName) =>
-    await _fitEntitiesCollection.Find(x => x.Name == userName).FirstOrDefaultAsync();
+    public async Task<User> GetByEmailAsync(string email) =>
+    await _fitEntitiesCollection.Find(x => x.Email == email).FirstOrDefaultAsync();
 }

@@ -6,7 +6,7 @@ using FitBit.API.ServerApp.Models.InputModels;
 using FitBit.API.ServerApp.Attributes;
 using Microsoft.AspNetCore.Authorization;
 
-[Authorize]
+//[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
@@ -31,6 +31,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
+   // [Authorize]
     [HttpGet("[action]")] // old - {id:length(24)}, TODO- take id from header, not from query
     [NeedsUserId] 
     public async Task<IActionResult> CurrentUser([FromQuery] string id)
@@ -45,6 +46,7 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
+   // [Authorize]
     [HttpPost("[action]")]
     public async Task<IActionResult> Login([FromBody] UserLoginModel model)
     {
@@ -58,11 +60,12 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
+   // [Authorize]
     [HttpPost("[action]")]
     [NeedsUserId]
     public async Task<IActionResult> Logout()
     {
-        this.HttpContext.Request.Headers.TryGetValue("uid", out var userId);  // TODO: Dont need that anymore
+        this.HttpContext.Request.Headers.TryGetValue("uid", out var userId);  // TODO: Dont need that anymore, but needs to check the token
 
         var result = await _userService.LogoutUserAsync();
 
@@ -87,7 +90,8 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("[action]")]   // old - {id:length(24)}
+   // [Authorize]
+    [HttpPut("[action]")]
     [NeedsUserId]
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] UserInputModel model)
     {
@@ -101,7 +105,8 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("[action]")]   // old - {id:length(24)}
+    // [Authorize]
+    [HttpDelete("[action]")]
     [NeedsUserId]
     public async Task<IActionResult> Delete([FromQuery] string id)
     {

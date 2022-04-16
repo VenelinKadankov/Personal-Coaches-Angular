@@ -8,6 +8,8 @@ public class UserInputModel
 
     public string Email { get; set; } = null!;
 
+   // public string Tel { get; set; } = null!;
+
     public bool IsAdmin { get; set; }
 
     public string Role { get; set; } = null!;

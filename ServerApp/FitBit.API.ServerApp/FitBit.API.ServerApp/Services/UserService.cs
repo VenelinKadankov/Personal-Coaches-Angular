@@ -32,7 +32,7 @@ public class UserService : BaseService<User>, IUserService
             return false;
         }
 
-        var dbModel = await (this._baseRepo as IUserRepo)?.GetByUsernameAsync(model.Name);
+        var dbModel = await (this._baseRepo as IUserRepo)?.GetByEmailAsync(model.Email);
 
         if (dbModel != null)
         {
@@ -125,12 +125,12 @@ public class UserService : BaseService<User>, IUserService
 
     public async Task<UserViewModel> LoginUserAsync(UserLoginModel model)
     {
-        if (model == null || model.UserName == null || model.Password == null)
+        if (model == null || model.Email == null || model.Password == null)
         {
             return null;
         }
 
-        var user = await (this._baseRepo as IUserRepo)?.GetByUsernameAsync(model.UserName);
+        var user = await (this._baseRepo as IUserRepo)?.GetByEmailAsync(model.Email);
 
         if (user == null)
         {
@@ -173,9 +173,9 @@ public class UserService : BaseService<User>, IUserService
         return Task.FromResult(true);
     }
 
-    public async Task<string> CreateTokenAsync(string userName, string password)
+    public async Task<string> CreateTokenAsync(string email, string password)
     {
-        var user = await GetUserAsync(userName, password);
+        var user = await GetUserAsync(email, password);
 
         if (user != null)
         {
@@ -204,10 +204,10 @@ public class UserService : BaseService<User>, IUserService
         return null;
     }
 
-    private async Task<User> GetUserAsync(string userName, string password)
+    private async Task<User> GetUserAsync(string email, string password)
     {
         var allUsers = await GetAsync();
 
-        return allUsers.FirstOrDefault(u => u.Name == userName && u.Password == _hashService.GetHash(password));
+        return allUsers.FirstOrDefault(u => u.Email == email && u.Password == _hashService.GetHash(password));
     }
 }

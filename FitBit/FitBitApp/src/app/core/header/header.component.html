@@ -5,24 +5,32 @@
         <fa-icon [icon]="faHearth"></fa-icon>
     </div>
 
+    <!--       <ul *ngIf="isLogged">
+        <li routerLink="/profile">{{username}}'s profile</li>
+        <li (click)="logout()">Logout</li>
+      </ul> -->
     <!-- TODO: When there is USER *ngIf for the navigation -->
-    <!-- <nav>
-        Buttons to change language
-        <ul class="header-buttons">
-            <li><a href="">Our coaches</a></li>
-            <li><button>EN</button></li>
-            <li><button>BG</button></li>
-            <li><button class="login-button">Log in</button></li>
-        </ul>
-    </nav> -->
-
     <nav>
+        <!-- Buttons to change language -->
+
         <ul class="user-buttons">
+            <li><a routerLink="/coaches">Coaches</a></li>
+            <li><a routerLink="/consultation" routerLinkActive="active">Consultation</a></li>
+        </ul>
+
+        <ul class="user-buttons" *ngIf="!isLogged">
+            <!-- <li><button>EN</button></li>
+            <li><button>BG</button></li> -->
+            <li><a  routerLink="/login">Log in</a></li>
+            <li><a routerLink="/register">Register</a></li>
+        </ul>
+
+        <ul class="user-buttons" *ngIf="isLogged">
             <li><a routerLink="/my-courses" routerLinkActive="active">My courses</a></li>
             <li><a routerLink="/my-coaches" routerLinkActive="active">My coaches</a></li>
-            <li><a routerLink="/consultation" routerLinkActive="active">Consultation</a></li>
             <!-- <li><a routerLink="/my-courses" routerLinkActive="active">Somethin else(video)</a></li> -->
             <li><a routerLink="/profile" routerLinkActive="active">My profile</a></li>
+            <li><button class="register-button"  (click)="logout()">Logout</button></li>
             <!-- <li><a [routerLink]="['details', user.id]" routerLinkActive="active">My proile</a></li> -->
         </ul>
     </nav>

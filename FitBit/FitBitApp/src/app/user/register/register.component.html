@@ -1,0 +1,66 @@
+<section id="register-page">
+    <div class="register-login-form">  	
+        <input type="checkbox" id="chk" aria-hidden="true">
+    
+            <div class="signup">
+
+                <form [formGroup]="registerForm" action="" method="post" (ngSubmit)="register()" class="register-form">
+                    <label>Sign up</label>
+
+                    <input type="text" name="name" placeholder="User name" formControlName="name">
+                    <ng-container *ngIf="registerForm.get('name')?.touched">
+                        <p *ngIf="registerForm.get('name')?.errors?.['required']" class="error">
+                          Username is required!
+                        </p>
+                        <p *ngIf="registerForm.get('name')?.errors?.['minlength']" class="error">
+                          Username should be > 4
+                        </p>
+                    </ng-container>
+
+                    <input type="email" name="email" placeholder="Email" formControlName="email">
+                    <ng-container *ngIf="registerForm.get('email')?.touched">
+                        <p *ngIf="registerForm.get('email')?.errors?.['required']" class="error">
+                          Email is required!
+                        </p>
+                        <p *ngIf="registerForm.get('email')?.errors?.['invalidEmail']" class="error">
+                          Email is not valid!
+                        </p>
+                    </ng-container>
+
+                    <input type="tel" name="tel" placeholder="Telephone" formControlName="tel">
+
+                    <input type="password" name="password" placeholder="Password" formControlName="password">
+                    <ng-container *ngIf="registerForm.get('password')?.touched">
+                        <p *ngIf="registerForm.get('password')?.errors?.['required']" class="error">
+                          Password is required!
+                        </p>
+                        <p *ngIf="registerForm.get('password')?.errors?.['minlength']" class="error">
+                          Password must be at least 4 characters!
+                        </p>
+                      </ng-container>
+
+                    <input type="password" name="rePassword" placeholder="Repeat Password" formControlName="rePassword">
+                    <ng-container *ngIf="registerForm.get('rePassword')?.touched">
+                        <p *ngIf="registerForm.get('rePassword')?.errors?.['required']" class="error">
+                          Repeat Password is required!
+                        </p>
+                        <p *ngIf="registerForm.get('rePassword')?.errors?.['sameValue']" class="error">
+                          Repeat Password does not match password!
+                        </p>
+                      </ng-container>
+
+                    <button>Sign up</button>
+                </form>
+            </div>
+    
+            <div class="login-redirect">
+                <p>Already registered?</p>
+                <a class="login-btn" routerLink="/login">Login</a>
+                <!-- <form>
+                    <input type="email" name="email" placeholder="Email" required="">
+                    <input type="password" name="password" placeholder="Password" required="">
+                    <button class="login-btn">Login</button>
+                </form> -->
+            </div>
+    </div>
+</section>

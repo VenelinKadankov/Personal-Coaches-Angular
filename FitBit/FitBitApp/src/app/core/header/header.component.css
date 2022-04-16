@@ -13,6 +13,15 @@ header a{
   text-decoration: none;
 }
 
+header nav{
+  padding: 1rem 5rem;
+  gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #357cfd;
+}
+
 .logo-area {
   display: flex;
   flex-direction: row;
