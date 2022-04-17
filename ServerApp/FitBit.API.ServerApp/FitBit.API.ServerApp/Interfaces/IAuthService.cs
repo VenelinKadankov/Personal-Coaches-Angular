@@ -4,7 +4,9 @@ public interface IAuthService
 {
     bool IsAuthenticated { get; }
 
-    bool Authenticate();
+    string Email { get; }
+
+    bool Authenticate(string email);
 
     bool Logout();
 }

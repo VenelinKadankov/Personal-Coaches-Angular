@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, OnInit } from '@angular/core';
 import { ILoginUser } from '../Interfaces/loginUser';
 import { IStorageUser } from '../Interfaces/storageUser';
 import { environment } from "src/environments/environment";
@@ -11,7 +11,7 @@ import { IUserToken } from '../Interfaces/userToken';
 const apiURL = environment.apiURL;
 
 @Injectable()
-export class UserService {
+export class UserService implements OnInit{
 
   jwtToken: string | any | undefined;
 
@@ -22,14 +22,12 @@ export class UserService {
   errorLoadingUser = false;
 
   get isLogged(): boolean {
-    return !!this.userWithToken;
+   // this.getUser().subscribe();
+    return !!this.user;
   }
 
   constructor(private http: HttpClient) {
     try {
-      // const localStorageUser = localStorage.getItem('<USER>') || 'ERROR';
-      // this.storageUser = JSON.parse(localStorageUser);
-
       const localStorageToken = localStorage.getItem('token') || 'ERROR';
       this.jwtToken = JSON.parse(localStorageToken);
     } catch {
@@ -38,39 +36,12 @@ export class UserService {
     }
   }
 
-  // login(name: string, password: string) {
-  //     this.loginUser = {
-  //         name,
-  //         password
-  //     }
-
-  //   let result = this.http.post<IUser>(`${apiURL}/user/login`, this.loginUser).subscribe({
-  //       next: (res) => { this.user = res },
-  //       error: (error) => {
-  //         console.log(error);
-  //         this.errorLoadingUser = true;
-  //       },
-  //       complete: () => console.log('load courses stream completed')
-  //     });
-
-  //     this.storageUser = {
-  //         name : this.user?.name,
-  //         email : this.user?.email
-  //     }
-
-  //   this.localStorage.setItem('<USER>', JSON.stringify(this.storageUser));
-
-  //   return this.user;
-  // }
+  ngOnInit(): void {
+   // this.getUser().subscribe();
+  }
 
   login(email: string, password: string) {
     if (email && password) {
-      //this.getToken(email, password);
-
-      // if (this.jwtToken == undefined) {
-      //   throw 'Unsuccessfull Login';
-      // }
-
       return this.http.post<IUserToken>(`${apiURL}/user/login`,
         { email, password },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(   // 'token': this.jwtToken!,
@@ -96,16 +67,16 @@ export class UserService {
     
     return this.http.post<IUser>(`${apiURL}/user/logout`, {},
       {
-        headers: new HttpHeaders({ 'token': token, 'uid': this.user?.userId! })
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`, 'uid': this.user?.userId! })
       }).pipe(
         tap(() => this.userWithToken = null)
       );
   }
 
-  register(name: string, email: string, tel: string, password: string) {
+  register(name: string, email: string, tel: string, profileImg: string, password: string) {
     if (email && password) {
       return this.http.post<IUserToken>(`${apiURL}/user/register`,
-        { name, password, email, isAdmin: false, role: 'user', courses: [] },
+        { name, password, email, tel, profileImg, isAdmin: false, role: 'user', courses: [] },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(
           tap((user) => this.userWithToken = user)
         );
@@ -115,34 +86,17 @@ export class UserService {
   }
 
   getUser() {
-    return this.http.get<IUser>(`${apiURL}/user/profile`, { withCredentials: true }).pipe(
+    let token = localStorage.getItem('token')!;
+
+    // if(!this.user || !this.user.userId){
+    //   throw new Error("No user currenty logged!");
+    //   ;
+    // }
+    
+    return this.http.get<IUser>(`${apiURL}/user/profile`, { 
+      headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`})//, 'uid': this.user?.userId! 
+     }).pipe(
       tap((user) => this.user = user)
     );
   }
-
-  // private getToken(email: string, password: string) {
-  //   return this.http.post(`${apiURL}/token`, { email, password },
-  //     { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe(
-  //       // tap((token) => 
-  //       // {
-  //       //   this.jwtToken = token;
-  //       //   console.log(token);
-  //       //   localStorage.setItem('<token>', JSON.stringify(token));
-  //       // })
-  //       {
-  //         next: (token) => {
-  //           this.jwtToken = token;
-  //           localStorage.setItem('<token>', JSON.stringify(token));
-  //           console.log(token);
-  //         },
-  //         error: (err) => console.log(err)
-  //         // localStorage.setItem('<token>', JSON.stringify(token));
-  //       }
-  //     );
-  // }
-
-  // logout(): void {
-  //   this.storageUser = undefined;
-  //   this.localStorage.removeItem('<USER>');
-  // }
 }

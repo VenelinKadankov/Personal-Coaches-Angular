@@ -15,28 +15,48 @@ const routes: Routes = [
   },
   {
     path: 'my-coaches',
-    component: UserListComponent
-    // TODO: Guard
+    component: UserListComponent,
+    canActivate: [AuthActivate],
+    data: {
+      authenticationRequired: true,
+      authenticationFailureRedirectUrl: '/',
+    }
   },
   {
     path: 'coach/:name',
-    component: CoachInfoComponent
+    component: CoachInfoComponent,
+    canActivate: [AuthActivate],
+    data: {
+      authenticationRequired: false,
+      authenticationFailureRedirectUrl: '/',
+    }
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [AuthActivate],
+    data: {
+      authenticationRequired: false,
+      authenticationFailureRedirectUrl: '/',
+    }
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthActivate],
+    data: {
+      authenticationRequired: false,
+      authenticationFailureRedirectUrl: '/',
+    }
   },
   {
-    path: 'profile',     //      /:id' when I have logged user,
+    path: 'profile/:userId',
     component: DetailsComponent,
    canActivate: [AuthActivate],
     data: {
-      paramsActivate: ['id'],
-      paramsActivateRedirectUrl: '/user-list'
+      authenticationRequired: true,
+      paramsActivateRedirectUrl: '/login',
+      authenticationFailureRedirectUrl: '/',
     }
   }
 ];

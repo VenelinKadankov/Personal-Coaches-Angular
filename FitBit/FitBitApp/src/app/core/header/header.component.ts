@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/user/userService';
@@ -8,11 +8,15 @@ import { UserService } from 'src/app/user/userService';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   faHearth = faHeart;
 
   get isLogged(): boolean {
     return this.userService.isLogged;
+  }
+
+  get userId(): string {
+    return this.userService.user?.userId!;
   }
 
   get username(): string {
@@ -20,10 +24,6 @@ export class HeaderComponent implements OnInit {
   }
 
   constructor(private userService: UserService, private router: Router) { }
-
-  ngOnInit(): void {
-    
-  }
 
   logout(): void {
     this.userService.logout().subscribe({

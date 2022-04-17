@@ -21,6 +21,12 @@ public class User : FitBitBaseModel
     [BsonElement("email")]
     public string Email { get; set; } = null!;
 
+    [BsonElement("tel")]
+    public string Telephone { get; set; } = null!;
+
+    [BsonElement("profileImg")]
+    public string ProfileImg { get; set; } = null!;
+
     [BsonElement("adm")]
     public bool IsAdmin { get; set; }
 

@@ -29,6 +29,8 @@
 
                     <input type="tel" name="tel" placeholder="Telephone" formControlName="tel">
 
+                    <input type="profileImg" name="profileImg" placeholder="Image address" formControlName="profileImg">
+
                     <input type="password" name="password" placeholder="Password" formControlName="password">
                     <ng-container *ngIf="registerForm.get('password')?.touched">
                         <p *ngIf="registerForm.get('password')?.errors?.['required']" class="error">

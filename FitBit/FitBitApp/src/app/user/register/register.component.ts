@@ -22,6 +22,7 @@ export class RegisterComponent implements OnDestroy {
         name: ['', [Validators.required, Validators.minLength(4)]],
         email: ['', [Validators.required, Validators.email]],
         tel: [''],
+        profileImg: [''],
         password: ['', [Validators.required, Validators.minLength(4)]],
         rePassword: ['', [Validators.required, sameValueAsFactory(
           () => this.registerForm?.get('password'), this.killSubscription
@@ -36,8 +37,9 @@ export class RegisterComponent implements OnDestroy {
       let email = this.registerForm.value.email;
       let tel = this.registerForm.value.tel;
       let password = this.registerForm.value.password;
+      let profileImg = this.registerForm.value.profileImg;
 
-      this.userService.register(name, email, tel, password).subscribe({
+      this.userService.register(name, email, tel, profileImg, password).subscribe({
         next: () => {
           this.router.navigate(['/']);
         },

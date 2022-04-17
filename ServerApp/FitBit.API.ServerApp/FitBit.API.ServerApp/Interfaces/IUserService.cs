@@ -12,6 +12,8 @@ public interface IUserService : IBaseService<User>
 
     public Task<UserViewModel> GetSingleUserAsync(string id);
 
+    public Task<UserViewModel> GetCurrentUserAsync();
+
     public Task<bool> CreateUserAsync(UserInputModel message);
 
     public Task<UserTokenModel> LoginUserAsync(UserLoginModel model);

@@ -31,7 +31,7 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
-   // [Authorize]
+    [Authorize]
     [HttpGet("[action]")] // old - {id:length(24)}, TODO- take id from header, not from query
     [NeedsUserId] 
     public async Task<IActionResult> CurrentUser([FromQuery] string id)
@@ -46,7 +46,23 @@ public class UserController : ControllerBase
         return Ok(user);
     }
 
-   // [Authorize]
+    [Authorize]
+    [HttpGet("[action]")] 
+    public async Task<IActionResult> Profile()
+    {
+       // this.HttpContext.Request.Headers.TryGetValue("uid", out var userId);
+
+        var user = await _userService.GetCurrentUserAsync();
+
+        if (user == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(user);
+    }
+
+    // [Authorize]
     [HttpPost("[action]")]
     public async Task<IActionResult> Login([FromBody] UserLoginModel model)
     {
@@ -60,7 +76,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-   // [Authorize]
+    [Authorize]
     [HttpPost("[action]")]
     [NeedsUserId]
     public async Task<IActionResult> Logout()
@@ -90,7 +106,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-   // [Authorize]
+    [Authorize]
     [HttpPut("[action]")]
     [NeedsUserId]
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] UserInputModel model)
@@ -105,7 +121,7 @@ public class UserController : ControllerBase
         return Ok(result);
     }
 
-    // [Authorize]
+    [Authorize]
     [HttpDelete("[action]")]
     [NeedsUserId]
     public async Task<IActionResult> Delete([FromQuery] string id)

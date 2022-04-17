@@ -151,7 +151,7 @@ public class UserService : BaseService<User>, IUserService
             return null;
         };
 
-        this._authService.Authenticate();
+        this._authService.Authenticate(model.Email);
 
         var result = new UserTokenModel 
         { 
@@ -168,6 +168,8 @@ public class UserService : BaseService<User>, IUserService
             Id = user.Id!,
             Name = user.Name,
             Email = user.Email,
+            Telephone = user.Telephone,
+            ProfileImg = user.ProfileImg,
             IsAdmin = user.IsAdmin,
             Role = user.Role.ToString(),
             Courses = user.Courses,
@@ -216,5 +218,18 @@ public class UserService : BaseService<User>, IUserService
         var allUsers = await GetAsync();
 
         return allUsers.FirstOrDefault(u => u.Email == email && u.Password == _hashService.GetHash(password));
+    }
+
+    public async Task<UserViewModel> GetCurrentUserAsync()
+    {
+        var allUsers = await GetAsync();
+        var currentUser = allUsers.FirstOrDefault(u => u.Email == this._authService.Email);
+
+        if(currentUser == null)
+        {
+            return null;
+        }
+
+        return ToViewModel(currentUser);
     }
 }

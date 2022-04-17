@@ -13,6 +13,12 @@ public class UserViewModel
     [JsonPropertyName("email")]
     public string Email { get; set; } = null!;
 
+    [JsonPropertyName("tel")]
+    public string Telephone { get; set; } = null!;
+
+    [JsonPropertyName("profileImg")]
+    public string ProfileImg { get; set; } = null!;
+
     [JsonPropertyName("isAdmin")]
     public bool IsAdmin { get; set; }
 
