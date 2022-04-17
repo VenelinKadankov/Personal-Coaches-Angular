@@ -92,6 +92,7 @@ header ul .login-button {
   padding: 0.5rem 1rem;
   border-radius: 30px;
   border: 1px solid #ffffff;
+  white-space: nowrap;
 }
 
 .user-buttons a:hover {

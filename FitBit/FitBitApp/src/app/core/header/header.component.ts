@@ -8,7 +8,7 @@ import { UserService } from 'src/app/user/userService';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   faHearth = faHeart;
 
   get isLogged(): boolean {
@@ -16,10 +16,14 @@ export class HeaderComponent {
   }
 
   get username(): string {
-    return this.userService.user?.user.name || '';
+    return this.userService.userWithToken?.user.name || '';
   }
 
   constructor(private userService: UserService, private router: Router) { }
+
+  ngOnInit(): void {
+    
+  }
 
   logout(): void {
     this.userService.logout().subscribe({

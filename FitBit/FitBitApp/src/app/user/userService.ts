@@ -17,11 +17,12 @@ export class UserService {
 
   storageUser: IStorageUser | undefined;
   loginUser: ILoginUser | undefined;
-  user: IUserToken | undefined | null;
+  userWithToken: IUserToken | undefined | null;
+  user: IUser | undefined | null;
   errorLoadingUser = false;
 
   get isLogged(): boolean {
-    return !!this.user;
+    return !!this.userWithToken;
   }
 
   constructor(private http: HttpClient) {
@@ -74,7 +75,8 @@ export class UserService {
         { email, password },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(   // 'token': this.jwtToken!,
           tap((user) => {
-            this.user = user;
+            this.userWithToken = user;
+            this.user = user.user;
             this.jwtToken = user.token;
             localStorage.setItem('token', user.token);
           })
@@ -85,14 +87,18 @@ export class UserService {
   }
 
   logout() {
-    let token = localStorage.getItem('<token>')!;
+    let token = localStorage.getItem('token')!;
 
+    if(!this.user || !this.user.userId){
+      throw new Error("No user currenty logged!");
+      ;
+    }
+    
     return this.http.post<IUser>(`${apiURL}/user/logout`, {},
       {
-        headers: new HttpHeaders({ 'token': token }),
-        withCredentials: true
+        headers: new HttpHeaders({ 'token': token, 'uid': this.user?.userId! })
       }).pipe(
-        tap(() => this.user = null)
+        tap(() => this.userWithToken = null)
       );
   }
 
@@ -101,18 +107,18 @@ export class UserService {
       return this.http.post<IUserToken>(`${apiURL}/user/register`,
         { name, password, email, isAdmin: false, role: 'user', courses: [] },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(
-          tap((user) => this.user = user)
+          tap((user) => this.userWithToken = user)
         );
     } else {
       throw 'Unsuccessfull register';
     }
   }
 
-  // getUser() {
-  //   return this.http.get<IUser>(`${apiURL}/user/profile`, { withCredentials: true }).pipe(
-  //     tap((user) => this.user = user)
-  //   );
-  // }
+  getUser() {
+    return this.http.get<IUser>(`${apiURL}/user/profile`, { withCredentials: true }).pipe(
+      tap((user) => this.user = user)
+    );
+  }
 
   // private getToken(email: string, password: string) {
   //   return this.http.post(`${apiURL}/token`, { email, password },

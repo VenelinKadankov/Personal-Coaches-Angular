@@ -162,14 +162,15 @@ public class UserService : BaseService<User>, IUserService
         return result;
     }
 
-    private static UserViewModel ToViewModel(User message)
+    private static UserViewModel ToViewModel(User user)
         => new()
         {
-            Name = message.Name,
-            Email = message.Email,
-            IsAdmin = message.IsAdmin,
-            Role = message.Role.ToString(),
-            Courses = message.Courses,
+            Id = user.Id!,
+            Name = user.Name,
+            Email = user.Email,
+            IsAdmin = user.IsAdmin,
+            Role = user.Role.ToString(),
+            Courses = user.Courses,
         };
 
     public Task<bool> LogoutUserAsync()
@@ -201,7 +202,7 @@ public class UserService : BaseService<User>, IUserService
                 _configuration["Jwt:Issuer"],
                 _configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddMinutes(60),
                 signingCredentials: signIn);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

@@ -8,6 +8,7 @@ using FitBit.API.ServerApp.Middlewares;
 using FitBit.API.ServerApp.Models;
 using FitBit.API.ServerApp.Repos;
 using FitBit.API.ServerApp.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,13 @@ builder.Services.AddScoped(typeof(ICourseService), typeof(CourseService));
 builder.Services.AddScoped(typeof(IMessageService), typeof(MessageService));
 builder.Services.AddSingleton(typeof(IAuthService), typeof(AuthService));
 builder.Services.AddSingleton(typeof(IHashService), typeof(HashService));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+        options.SlidingExpiration = true;
+        options.AccessDeniedPath = "/Forbidden/";
+    });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -66,6 +74,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+var cookiePolicyOptions = new CookiePolicyOptions
+{
+    MinimumSameSitePolicy = SameSiteMode.Strict, // fix that
+};
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -74,6 +87,7 @@ app.UseRouting();
 app.UseCors(MyAllowSpecificOrigins);
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCookiePolicy(cookiePolicyOptions);
 
 app.MapRazorPages();
 app.MapControllers();

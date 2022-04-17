@@ -1,12 +1,10 @@
-<p>login works!</p>
 <section class="login-page">
+    <div class="login">
         <label>Login</label>
-
-        <p>Form Status: {{ loginForm.status }}</p>
 
         <form [formGroup]="loginForm" action="" method="post" (ngSubmit)="login()" class="login-form">
             <input type="email" name="email" placeholder="Email" formControlName="email">
-            <ng-container *ngIf="loginForm.get('name')?.touched">
+            <ng-container *ngIf="loginForm.get('email')?.touched">
                 <p *ngIf="loginForm.get('email')?.errors?.['required']" class="error">
                   Email is required!
                 </p>
@@ -21,4 +19,6 @@
 
             <button class="login-btn">Login</button>
         </form>
+    </div>
+
 </section>
