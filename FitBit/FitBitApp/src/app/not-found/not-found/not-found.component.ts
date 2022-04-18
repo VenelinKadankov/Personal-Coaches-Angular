@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotFoundComponent implements OnInit {
 
-  constructor() { }
+  @Input() status: string | undefined;
+
+  constructor( private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.status = this.route.snapshot.paramMap.get('status')!;
   }
 
 }

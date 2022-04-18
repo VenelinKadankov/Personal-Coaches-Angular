@@ -9,6 +9,7 @@ import { UserRoutingModule } from './user-routing.module';
 import { RegisterComponent } from './register/register.component';
 import { UserService } from './userService';
 import { SharedModule } from '../shared/shared.module';
+import { EditComponent } from './edit/edit.component';
 
 
 
@@ -18,7 +19,8 @@ import { SharedModule } from '../shared/shared.module';
     UserListComponent,
     CoachInfoComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,

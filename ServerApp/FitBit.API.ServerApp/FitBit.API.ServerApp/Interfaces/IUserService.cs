@@ -22,5 +22,7 @@ public interface IUserService : IBaseService<User>
 
     public Task<bool> EditUserAsync(string id, UserInputModel message);
 
+  //  public Task<bool> PatchUserAsync(string id, UserInputModel message);
+
     public Task<bool> DeleteUserAsync(string id);
 }

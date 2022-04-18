@@ -1,23 +1,19 @@
-<div class="container">
-  <p>details works!</p>
-</div>
-
 <section class="profile-page">
+  <article class="user-profile">
+    <div class="img-container">
+      <img src="{{ user!.profileImg }}" alt="profile picture" />
+    </div>
+    <div>
+      <h2>Name: {{ user!.name }}</h2>
+      <h3>Email: {{ user!.email }}</h3>
+      <p>Tel: {{ user!.tel }}</p>
+      <button  type="button" [routerLink]="['/profile', userId, 'edit']">Edit profile</button>
+      <!-- <button type="button" class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button> -->
 
-<article class="user-profile">
-  <div>
-    <img src="{{user!.profileImg}}" alt="profile picture">
-  </div>
-  <div>
-    <h3>{{user!.name}}</h3>
-    <h5>{{user!.email}}</h5>
-    <p>{{user!.tel}}</p>
-    <button>Edit profile</button>
-  </div>
-</article>
+    </div>
+  </article>
 
-<article clas="user-courses">
-  <div class="my-courses">Courses will be here</div>
-</article>
-
+  <article clas="user-courses">
+    <div class="my-courses">Courses will be here</div>
+  </article>
 </section>

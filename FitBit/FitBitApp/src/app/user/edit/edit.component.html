@@ -1,0 +1,39 @@
+<section id="edit-page">
+    <div class="edit-form">  	
+        <input type="checkbox" id="chk" aria-hidden="true">
+    
+            <div class="signup">
+
+                <form [formGroup]="editForm" action="" method="post" (ngSubmit)="edit()" class="edit-form">
+                    <label>Edit data</label>
+
+                    <input type="text" name="name" formControlName="name"  id="name" #name>
+                    <ng-container *ngIf="editForm.get('name')?.touched">
+                        <p *ngIf="editForm.get('name')?.errors?.['required']" class="error">
+                          Username is required!
+                        </p>
+                        <p *ngIf="editForm.get('name')?.errors?.['minlength']" class="error">
+                          Username should be > 4
+                        </p>
+                    </ng-container>
+
+                    <input type="email" name="email" placeholder="Email" formControlName="email">
+                    <ng-container *ngIf="editForm.get('email')?.touched">
+                        <p *ngIf="editForm.get('email')?.errors?.['required']" class="error">
+                          Email is required!
+                        </p>
+                        <p *ngIf="editForm.get('email')?.errors?.['invalidEmail']" class="error">
+                          Email is not valid!
+                        </p>
+                    </ng-container>
+
+                    <input type="tel" name="tel" placeholder="Telephone" formControlName="tel">
+
+                    <input type="profileImg" name="profileImg" placeholder="Image address" formControlName="profileImg">
+
+                    <button>Update</button>
+                    <button [routerLink]="['/profile', userId]" type="button">Cancel</button>
+                </form>
+            </div>
+    </div>
+</section>

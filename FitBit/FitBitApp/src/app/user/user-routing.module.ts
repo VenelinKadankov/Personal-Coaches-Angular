@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthActivate } from '../core/guard/auth.activate';
 import { CoachInfoComponent } from './coach-info/coach-info.component';
 import { DetailsComponent } from './details/details.component';
+import { EditComponent } from './edit/edit.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user-list/user-list.component';
@@ -56,6 +57,16 @@ const routes: Routes = [
     data: {
       authenticationRequired: true,
       paramsActivateRedirectUrl: '/login',
+      authenticationFailureRedirectUrl: '/',
+    }
+  },
+  {
+    path: 'profile/:userId/edit',
+    component: EditComponent,
+   canActivate: [AuthActivate],
+    data: {
+      authenticationRequired: true,
+      // paramsActivateRedirectUrl: '/',
       authenticationFailureRedirectUrl: '/',
     }
   }

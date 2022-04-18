@@ -58,7 +58,7 @@ export class UserService implements OnInit{
   }
 
   logout() {
-    let token = localStorage.getItem('token')!;
+    let token = this.GetToken();
 
     if(!this.user || !this.user.userId){
       throw new Error("No user currenty logged!");
@@ -69,7 +69,11 @@ export class UserService implements OnInit{
       {
         headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`, 'uid': this.user?.userId! })
       }).pipe(
-        tap(() => this.userWithToken = null)
+        tap(() => 
+        {
+          this.user = null;
+          localStorage.removeItem('token');
+        })
       );
   }
 
@@ -85,18 +89,37 @@ export class UserService implements OnInit{
     }
   }
 
-  getUser() {
-    let token = localStorage.getItem('token')!;
+  update(name: string, email: string, tel: string, profileImg: string){
+    let token = this.GetToken();
 
-    // if(!this.user || !this.user.userId){
-    //   throw new Error("No user currenty logged!");
-    //   ;
-    // }
+    if(!this.user || !this.user.userId){
+      throw new Error("No user currenty logged!");
+      ;
+    }
+
+    if (email && name) {
+      return this.http.put<IUser>(`${apiURL}/user/edit`,
+        { name, email, tel, profileImg },
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`, 'uid': this.user?.userId! }) }).pipe(
+          tap((user) => this.user = user)
+        );
+    } else {
+      throw 'Unsuccessfull edit';
+    }
+  }
+
+  getUser() {
+    let token = this.GetToken();
     
     return this.http.get<IUser>(`${apiURL}/user/profile`, { 
       headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`})//, 'uid': this.user?.userId! 
      }).pipe(
       tap((user) => this.user = user)
     );
+  }
+
+  private GetToken(){
+    return localStorage.getItem('token')!;
   }
 }

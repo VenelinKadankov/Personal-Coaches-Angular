@@ -91,6 +91,11 @@ public class UserService : BaseService<User>, IUserService
         return true;
     }
 
+  //  public Task<bool> PatchUserAsync(string id, UserInputModel message)
+   // {
+        
+  //  }
+
     public async Task<List<UserViewModel>> GetAllUserViewModelsAsync()
     {
         var users = await GetAsync();
@@ -162,19 +167,6 @@ public class UserService : BaseService<User>, IUserService
         return result;
     }
 
-    private static UserViewModel ToViewModel(User user)
-        => new()
-        {
-            Id = user.Id!,
-            Name = user.Name,
-            Email = user.Email,
-            Telephone = user.Telephone,
-            ProfileImg = user.ProfileImg,
-            IsAdmin = user.IsAdmin,
-            Role = user.Role.ToString(),
-            Courses = user.Courses,
-        };
-
     public Task<bool> LogoutUserAsync()
     {
         this._authService.Logout();
@@ -232,4 +224,17 @@ public class UserService : BaseService<User>, IUserService
 
         return ToViewModel(currentUser);
     }
+
+    private static UserViewModel ToViewModel(User user)
+        => new()
+        {
+            Id = user.Id!,
+            Name = user.Name,
+            Email = user.Email,
+            Telephone = user.Telephone,
+            ProfileImg = user.ProfileImg,
+            IsAdmin = user.IsAdmin,
+            Role = user.Role.ToString(),
+            Courses = user.Courses,
+        };
 }

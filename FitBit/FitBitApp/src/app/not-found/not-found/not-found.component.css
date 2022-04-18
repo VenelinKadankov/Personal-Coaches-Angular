@@ -1,0 +1,13 @@
+.not-found{
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+span{
+    font-weight: bold;
+    color: red;
+}

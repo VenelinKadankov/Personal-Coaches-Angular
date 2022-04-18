@@ -7,9 +7,11 @@
         <h6>Author(should be another request)</h6>
         <p>{{ course!.content.substring(0, 100) }}...</p>
       </div>
+    <div class="button-container">
       <!-- TODO: check if subscribed=> unsubscribe -->
       <button type="button" [routerLink]="['/my-courses', course!.id]" [id]="course!.id">Details</button>
       <button type="button">Subscribe</button>
+    </div>
     </div>
   </div>
 </article>

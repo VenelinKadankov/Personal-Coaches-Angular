@@ -10,6 +10,10 @@ import { UserService } from '../../user/userService';
 export class DetailsComponent implements OnInit {
   user: IUser | undefined | null;
 
+  get userId(): string {
+    return this.userService.user?.userId!;
+  }
+
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
