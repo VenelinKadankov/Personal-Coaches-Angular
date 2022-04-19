@@ -66,7 +66,7 @@ public class UserService : BaseService<User>, IUserService
         return true;
     }
 
-    public async Task<bool> EditUserAsync(string id, UserInputModel model)
+    public async Task<bool> EditUserAsync(string id, UserEditModel model)
     {
         if (id == null || model == null || model.Name == null || model.Email == null)
         {
@@ -80,9 +80,8 @@ public class UserService : BaseService<User>, IUserService
             return false;
         }
 
-        user.IsAdmin = model.IsAdmin;
-        user.Role = (Role)Enum.Parse(typeof(Role), model.Role, true);
-        user.Courses = model.Courses;
+        user.Telephone = model.Tel;
+        user.ProfileImg = model.ProfileImg;
         user.Name = model.Name;
         user.Email = model.Email;
 
@@ -90,11 +89,6 @@ public class UserService : BaseService<User>, IUserService
 
         return true;
     }
-
-  //  public Task<bool> PatchUserAsync(string id, UserInputModel message)
-   // {
-        
-  //  }
 
     public async Task<List<UserViewModel>> GetAllUserViewModelsAsync()
     {

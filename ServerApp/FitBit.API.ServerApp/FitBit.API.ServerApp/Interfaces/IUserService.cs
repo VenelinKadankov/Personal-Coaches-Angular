@@ -20,9 +20,7 @@ public interface IUserService : IBaseService<User>
 
     public Task<bool> LogoutUserAsync();
 
-    public Task<bool> EditUserAsync(string id, UserInputModel message);
-
-  //  public Task<bool> PatchUserAsync(string id, UserInputModel message);
+    public Task<bool> EditUserAsync(string id, UserEditModel message);
 
     public Task<bool> DeleteUserAsync(string id);
 }

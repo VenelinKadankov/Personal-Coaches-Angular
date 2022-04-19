@@ -109,8 +109,10 @@ public class UserController : ControllerBase
     [Authorize]
     [HttpPut("[action]")]
     [NeedsUserId]
-    public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] UserInputModel model)
+    public async Task<IActionResult> Edit([FromBody] UserEditModel model)
     {
+        var id = this.HttpContext.Request.Headers["uid"];
+
         var result = await _userService.EditUserAsync(id, model);
 
         if (result == false)

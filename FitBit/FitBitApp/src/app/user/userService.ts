@@ -99,7 +99,7 @@ export class UserService implements OnInit{
 
     if (email && name) {
       return this.http.put<IUser>(`${apiURL}/user/edit`,
-        { name, email, tel, profileImg },
+        { 'id': this.user.userId, name, email, tel, profileImg },
         { headers: new HttpHeaders({ 'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`, 'uid': this.user?.userId! }) }).pipe(
           tap((user) => this.user = user)
