@@ -15,11 +15,11 @@ export class UserService implements OnInit{
 
   jwtToken: string | any | undefined;
 
-  storageUser: IStorageUser | undefined;
-  loginUser: ILoginUser | undefined;
+  //storageUser: IStorageUser | undefined;
+  //loginUser: ILoginUser | undefined;
   userWithToken: IUserToken | undefined | null;
   user: IUser | undefined | null;
-  errorLoadingUser = false;
+  //errorLoadingUser = false;
 
   get isLogged(): boolean {
    // this.getUser().subscribe();
@@ -31,7 +31,7 @@ export class UserService implements OnInit{
       const localStorageToken = localStorage.getItem('token') || 'ERROR';
       this.jwtToken = JSON.parse(localStorageToken);
     } catch {
-      this.storageUser = undefined;
+      //this.storageUser = undefined;
       this.jwtToken = undefined;
     }
   }
@@ -67,7 +67,9 @@ export class UserService implements OnInit{
     
     return this.http.post<IUser>(`${apiURL}/user/logout`, {},
       {
-        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`, 'uid': this.user?.userId! })
+        headers: new HttpHeaders({
+          'Authorization': `Bearer ${token}`,
+          'uid': this.user?.userId! })
       }).pipe(
         tap(() => 
         {
@@ -100,8 +102,10 @@ export class UserService implements OnInit{
     if (email && name) {
       return this.http.put<IUser>(`${apiURL}/user/edit`,
         { 'id': this.user.userId, name, email, tel, profileImg },
-        { headers: new HttpHeaders({ 'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 'uid': this.user?.userId! }) }).pipe(
+        { headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+          'uid': this.user?.userId! }) }).pipe(
           tap((user) => this.user = user)
         );
     } else {

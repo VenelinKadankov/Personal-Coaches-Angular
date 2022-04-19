@@ -87,6 +87,25 @@ public class CourseService : BaseService<Course>, ICourseService
         return result;
     }
 
+    public async Task<List<CourseViewModel>> GetMyCoursesAsync(string id)
+    {
+        var courses = await GetAsync();
+
+        if (courses == null)
+        {
+            return null;
+        }
+
+        var result = new List<CourseViewModel>();
+
+        foreach (var course in courses.Where(c => c.Subscribers.Contains(id)))
+        {
+            result.Add(ToViewModel(course));
+        }
+
+        return result;
+    }
+
     public async Task<CourseViewModel> GetSingleCourseAsync(string id)
     {
         var course = await GetAsync(id);

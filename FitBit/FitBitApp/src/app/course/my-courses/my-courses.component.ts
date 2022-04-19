@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CourseService } from '../course.service';
 import { ICourse } from '../../Interfaces/course';
+import { UserService } from 'src/app/user/userService';
 
 
 
@@ -25,7 +26,7 @@ export class MyCoursesComponent implements OnInit {
   courses: ICourse[] | undefined;
   errorLoadingCourses = false;
 
-  constructor(public courseService: CourseService) { }
+  constructor(public courseService: CourseService, public userService: UserService) { }
 
   ngOnInit(): void {
     this.loadCourses();
@@ -35,7 +36,7 @@ export class MyCoursesComponent implements OnInit {
     this.courses = undefined;
     this.errorLoadingCourses = false;
 
-    this.courseService.loadCourses()
+    this.courseService.getMyCourses(this.userService.user?.userId!)
     .subscribe({
       next: (courses) => { this.courses = courses },
       error: (error) => {

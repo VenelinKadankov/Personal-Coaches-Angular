@@ -8,6 +8,8 @@ public interface ICourseService : IBaseService<Course>
 {
     public Task<List<CourseViewModel>> GetAllCoursesAsync();
 
+    public Task<List<CourseViewModel>> GetMyCoursesAsync(string id);
+
     public Task<CourseViewModel> GetSingleCourseAsync(string id);
 
     public Task<bool> CreateCourseAsync(CourseInputModel message);

@@ -13,7 +13,38 @@
     </div>
   </article>
 
-  <article clas="user-courses">
-    <div class="my-courses">Courses will be here</div>
+  <article class="user-courses">
+
+    <div *ngIf="!myCourses![0]">
+      <p>
+        You have no courses!
+      </p>
+      <button>Go to courses</button>
+    </div>
+
+    <div class="my-courses">
+      <div *ngIf="myCourses![0]" class="course-card">
+        <div class="course-img-container"><img class="course-img" src="{{myCourses![0].images![0]}}" alt="course pic"></div>
+        <p>
+          {{myCourses![0].title}}
+        </p>
+        <button [routerLink]="['/my-courses', myCourses![0]!.id]" [id]="myCourses![0]!.id">
+          View details
+        </button>
+      </div>
+  
+      <div *ngIf="myCourses![1]" class="course-card">
+        <div class="course-img-container"><img class="course-img" src="{{myCourses![1].images![0]}}" alt="course pic"></div>
+        <p>
+          {{myCourses![1].title}}
+        </p>
+        <button [routerLink]="['/my-courses', myCourses![1]!.id]" [id]="myCourses![1]!.id">
+          View details
+        </button>
+      </div>
+  
+      <button class="my-courses-btn" routerLink="/my-courses">See all of your courses</button>
+    </div>
+  
   </article>
 </section>

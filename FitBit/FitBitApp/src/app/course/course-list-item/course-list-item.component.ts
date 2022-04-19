@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { ICourse } from 'src/app/Interfaces/course';
+import { UserService } from 'src/app/user/userService';
 
 @Component({
   selector: 'app-course-list-item',
@@ -10,10 +11,12 @@ import { ICourse } from 'src/app/Interfaces/course';
 export class CourseListItemComponent implements OnInit {
 
   @Input() course: ICourse | undefined;
+  userId: string | undefined;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userId = this.userService.user?.userId;
   }
 
 }

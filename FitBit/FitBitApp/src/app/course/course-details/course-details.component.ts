@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { CourseService } from '../course.service';
 import { ICourse } from 'src/app/Interfaces/course';
+import { UserService } from 'src/app/user/userService';
 
 @Component({
   selector: 'app-course-details',
@@ -11,16 +12,18 @@ import { ICourse } from 'src/app/Interfaces/course';
   styleUrls: ['./course-details.component.css']
 })
 export class CourseDetailsComponent implements OnInit {
-  id: string | undefined;
+  courseId: string | undefined;
+  userId: string | undefined;
 
   course: ICourse | undefined;
   errorLoadingCourse = false;
   deleteSuccess = false;
 
-  constructor(public courseService: CourseService, private route: ActivatedRoute, private router: Router) { }
+  constructor(public courseService: CourseService, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id')!;
+    this.courseId = this.route.snapshot.paramMap.get('id')!;
+    this.userId = this.userService.user!.userId;
     this.loadCourse();
   }
 
@@ -28,7 +31,7 @@ export class CourseDetailsComponent implements OnInit {
     this.course = undefined;
     this.errorLoadingCourse = false;
 
-    this.courseService.loadCourse(this.id!)
+    this.courseService.getSingeCourse(this.courseId!)
     .subscribe({
       next: (course) => { this.course = course },
       error: (error) => {
@@ -40,8 +43,8 @@ export class CourseDetailsComponent implements OnInit {
   }
 
   onDelete(): void {
-    if(this.id){
-      this.courseService.deleteCourse(this.id!).subscribe({
+    if(this.courseId){
+      this.courseService.deleteCourse(this.courseId!).subscribe({
         next: (result) => { this.deleteSuccess = result },
         error: (error) => {
           console.error(error);

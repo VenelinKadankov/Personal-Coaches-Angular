@@ -53,7 +53,7 @@ const routes: Routes = [
   {
     path: 'profile/:userId',
     component: DetailsComponent,
-   canActivate: [AuthActivate],
+    canActivate: [AuthActivate],
     data: {
       authenticationRequired: true,
       paramsActivateRedirectUrl: '/login',
@@ -63,7 +63,7 @@ const routes: Routes = [
   {
     path: 'profile/:userId/edit',
     component: EditComponent,
-   canActivate: [AuthActivate],
+    canActivate: [AuthActivate],
     data: {
       authenticationRequired: true,
       // paramsActivateRedirectUrl: '/',

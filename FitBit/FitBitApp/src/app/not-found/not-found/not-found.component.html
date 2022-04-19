@@ -1,4 +1,5 @@
 <div class="not-found">
     <h1>Something went wrong!</h1>
-    <h1 class="status-code">Status-code: <span>{{status}}</span></h1>
+    <h1 *ngIf="status" class="status-code">Status-code: <span>{{status}}</span></h1>
+    <h1 *ngIf="!status" class="status-code"><span>You are not allowed there!!!</span></h1>
 </div>

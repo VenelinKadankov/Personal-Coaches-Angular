@@ -15,9 +15,13 @@
     <div class="course-desc-item">
       <p>{{ course!.content }}</p>
 
-      <div class="course-btns-section">
-        <button type="button" class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button>
-        <button type="button" class="course-button" (click)="onDelete()">Delete</button>
+      <div *ngIf="course!.createdBy == userId" class="course-btns-section">
+        <button class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button>
+        <button class="course-button" (click)="onDelete()">Delete</button>
+      </div>
+
+      <div *ngIf="course!.createdBy != userId">
+        <button class="course-button" routerLink="/consultation">Contact coach</button>
       </div>
     </div>
   </div>

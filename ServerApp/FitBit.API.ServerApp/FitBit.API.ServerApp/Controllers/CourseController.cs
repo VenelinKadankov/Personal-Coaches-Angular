@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 using FitBit.API.ServerApp.Interfaces;
 using FitBit.API.ServerApp.Models.InputModels;
+using FitBit.API.ServerApp.Attributes;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -41,7 +43,26 @@ public class CourseController : ControllerBase
         return Ok(courses);
     }
 
+    [Authorize]
+    [HttpGet("[action]")]
+    [NeedsUserId]
+    public async Task<IActionResult> MyCourses() // GET - "api/course/myCourses"
+    {
+        var id = this.HttpContext.Request.Headers["uid"];
+
+        var courses = await _courseService.GetMyCoursesAsync(id);
+
+        if (courses == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(courses);
+    }
+
+    [Authorize]
     [HttpPost("[action]")]
+    [NeedsUserId]
     public async Task<IActionResult> Create([FromBody] CourseInputModel model)
     {
         var result = await _courseService.CreateCourseAsync(model);
@@ -54,7 +75,9 @@ public class CourseController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("[action]")] // old - {id:length(24)}
+    [Authorize]
+    [HttpPut("[action]")]
+    [NeedsUserId]
     public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] CourseInputModel model)
     {
         var result = await _courseService.EditCourseAsync(id, model);
@@ -67,7 +90,9 @@ public class CourseController : ControllerBase
         return Ok(result);
     }
 
-    [HttpDelete("[action]")]  // old - {id:length(24)}
+    [Authorize]
+    [HttpDelete("[action]")]
+    [NeedsUserId]
     public async Task<IActionResult> Delete([FromQuery] string id)
     {
         var result = await _courseService.DeleteCourseAsync(id);
