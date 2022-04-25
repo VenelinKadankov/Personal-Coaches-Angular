@@ -1,6 +1,6 @@
 <section id="edit-page">
     <div class="edit-form">  	
-        <input type="checkbox" id="chk" aria-hidden="true">
+        <!-- <input type="checkbox" id="chk" aria-hidden="true"> -->
     
             <div class="signup">
 
@@ -29,7 +29,7 @@
 
                     <input type="tel" name="tel" placeholder="Telephone" formControlName="tel">
 
-                    <input type="profileImg" name="profileImg" placeholder="Image address" formControlName="profileImg">
+                    <input type="text" name="profileImg" placeholder="Image address" formControlName="profileImg">
 
                     <button>Update</button>
                     <button [routerLink]="['/profile', userId]" type="button">Cancel</button>

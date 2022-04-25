@@ -15,14 +15,14 @@
 
   <article class="user-courses">
 
-    <div *ngIf="!myCourses![0]">
+    <div *ngIf="!myCourses">
       <p>
         You have no courses!
       </p>
       <button>Go to courses</button>
     </div>
 
-    <div class="my-courses">
+    <div *ngIf="myCourses!" class="my-courses">
       <div *ngIf="myCourses![0]" class="course-card">
         <div class="course-img-container"><img class="course-img" src="{{myCourses![0].images![0]}}" alt="course pic"></div>
         <p>

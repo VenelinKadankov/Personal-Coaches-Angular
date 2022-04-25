@@ -1,28 +1,21 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Inject, Injectable, InjectionToken, OnInit } from '@angular/core';
-import { ILoginUser } from '../Interfaces/loginUser';
-import { IStorageUser } from '../Interfaces/storageUser';
+import { Injectable } from '@angular/core';
 import { environment } from "src/environments/environment";
 import { IUser } from '../Interfaces/user';
 import { tap } from 'rxjs/operators';
 import { IUserToken } from '../Interfaces/userToken';
 
-// const LocalStorage = new InjectionToken('LocalStorage');
 const apiURL = environment.apiURL;
 
 @Injectable()
-export class UserService implements OnInit{
+export class UserService{
 
   jwtToken: string | any | undefined;
 
-  //storageUser: IStorageUser | undefined;
-  //loginUser: ILoginUser | undefined;
   userWithToken: IUserToken | undefined | null;
   user: IUser | undefined | null;
-  //errorLoadingUser = false;
 
   get isLogged(): boolean {
-   // this.getUser().subscribe();
     return !!this.user;
   }
 
@@ -31,13 +24,8 @@ export class UserService implements OnInit{
       const localStorageToken = localStorage.getItem('token') || 'ERROR';
       this.jwtToken = JSON.parse(localStorageToken);
     } catch {
-      //this.storageUser = undefined;
       this.jwtToken = undefined;
     }
-  }
-
-  ngOnInit(): void {
-   // this.getUser().subscribe();
   }
 
   login(email: string, password: string) {

@@ -8,6 +8,8 @@ import { CourseListItemComponent } from './course-list-item/course-list-item.com
 import { CourseService } from './course.service';
 import { CoursesRoutingModule } from './course-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
+import { UserModule } from '../user/user.module';
 
 
 
@@ -21,6 +23,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   imports: [
     CommonModule,
+    UserModule,
+    ReactiveFormsModule,
     CoursesRoutingModule,
     MatProgressSpinnerModule
   ],

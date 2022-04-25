@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { CourseService } from '../course.service';
 import { ICourse } from '../../Interfaces/course';
-import { UserService } from 'src/app/user/userService';
+import { UserService } from 'src/app/user/user.service';
 
 
 

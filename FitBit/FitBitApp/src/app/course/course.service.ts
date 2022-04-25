@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Inject, Injectable, OnInit } from "@angular/core";
 import { tap } from "rxjs";
 
 import { ICourse } from "src/app/Interfaces/course";
 import { environment } from "src/environments/environment";
-import { UserService } from "../user/userService";
+import { UserService } from "../user/user.service";
 
 const apiURL = environment.apiURL;
 
@@ -12,25 +12,37 @@ const apiURL = environment.apiURL;
 export class CourseService {
 
   course: ICourse | undefined | null;
+
   allCourses: ICourse[] | undefined | null;
   myCourses: ICourse[] | undefined | null;
   isEditted: boolean = false;
 
-  constructor(private http: HttpClient, private userService: UserService) { }
-  
-  update(title: string, content: string, imgs: string[], subscribers: string[]){
+  constructor(private http: HttpClient, private userService: UserService) {
+    this.course = null;
+   }
+
+  //  ngOnInit(): void {
+  //    let courseId = this.route.snapshot.paramMap.get('id')!;
+  //   this.getSingleCourse(courseId);
+  //  }
+
+  update(title: string, content: string, imgs: string[], subscribers: string[]) {
     let token = this.GetToken();
 
-    if(!this.userService.user || !this.userService.user.userId){
+    if (!this.userService.user || !this.userService.user.userId) {
       throw new Error("No user currenty logged!");
       ;
     }
 
     if (title && content && imgs && subscribers) {
       return this.http.put<boolean>(`${apiURL}/course/edit`,
-        {  },
-        { headers: new HttpHeaders({ 'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, 'uid': this.userService.user?.userId! }) }).pipe(
+        {},
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`, 'uid': this.userService.user?.userId!
+          })
+        }).pipe(
           tap((res) => this.isEditted = res)
         );
     } else {
@@ -40,48 +52,56 @@ export class CourseService {
 
   getAllCourses() {
     let token = this.GetToken();
-    
-    return this.http.get<ICourse[]>(`${apiURL}/course/all`, { 
+
+    return this.http.get<ICourse[]>(`${apiURL}/course/all`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`})
-     }).pipe(
+        'Authorization': `Bearer ${token}`
+      })
+    }).pipe(
       tap((courses) => this.allCourses = courses)
     );
   }
 
   getMyCourses(id: string) {
     let token = this.GetToken();
-    
-    return this.http.get<ICourse[]>(`${apiURL}/course/myCourses`, { 
-      headers: new HttpHeaders({ 
+
+    return this.http.get<ICourse[]>(`${apiURL}/course/myCourses`, {
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-        'uid': id})
-     }).pipe(
+        'uid': id
+      })
+    }).pipe(
       tap((courses) => this.myCourses = courses)
     );
   }
 
-  getSingeCourse(id: string) {
-    return this.http.get<ICourse>(`${apiURL}/course/chosencourse?id=${id}`);
+  getSingleCourse(id: string) {
+    return this.http.get<ICourse>(`${apiURL}/course/chosencourse?id=${id}`).pipe(
+      tap((course) => {
+        this.course = course;
+        localStorage.setItem('currentCourse', JSON.stringify(course))
+      })
+    );
   }
 
- 
-  deleteCourse(id: string){
+
+  deleteCourse(id: string) {
     let token = this.GetToken();
 
-    return this.http.delete<boolean>(`${apiURL}/course/delete?id=${id}`,{ 
-      headers: new HttpHeaders({ 
+    return this.http.delete<boolean>(`${apiURL}/course/delete?id=${id}`, {
+      headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
-        'uid': id})
-     }).pipe(
+        'uid': id
+      })
+    }).pipe(
       tap(() => this.allCourses = [])
     );
   }
 
-  private GetToken(){
+  private GetToken() {
     return localStorage.getItem('token')!;
   }
 }

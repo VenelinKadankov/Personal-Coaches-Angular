@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthActivate } from '../core/guard/auth.activate';
 import { CourseCreateComponent } from './course-create/course-create.component';
@@ -16,17 +17,17 @@ const routes: Routes = [
     }
   },
   {
-    path: 'my-courses/:id',
-    component: CourseDetailsComponent,
-    canActivate: [AuthActivate],
+    path: 'my-courses/:id/edit',
+    component: CourseEditComponent,
     data: {
       authenticationRequired: true,
-      authenticationFailureRedirectUrl: '/',
+      authenticationFailureRedirectUrl: '',
     }
   },
   {
-    path: 'my-courses/:id/edit',
-    component: CourseEditComponent,
+    path: 'my-courses/:id',
+    component: CourseDetailsComponent,
+    canActivate: [AuthActivate],
     data: {
       authenticationRequired: true,
       authenticationFailureRedirectUrl: '/',
@@ -42,4 +43,9 @@ const routes: Routes = [
   }
 ];
 
-export const CoursesRoutingModule = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class CoursesRoutingModule { }
+// export const CoursesRoutingModule = RouterModule.forChild(routes);

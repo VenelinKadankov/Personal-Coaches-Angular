@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { CourseService } from '../course.service';
 import { ICourse } from 'src/app/Interfaces/course';
-import { UserService } from 'src/app/user/userService';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-course-details',
@@ -31,7 +31,7 @@ export class CourseDetailsComponent implements OnInit {
     this.course = undefined;
     this.errorLoadingCourse = false;
 
-    this.courseService.getSingeCourse(this.courseId!)
+    this.courseService.getSingleCourse(this.courseId!)
     .subscribe({
       next: (course) => { this.course = course },
       error: (error) => {

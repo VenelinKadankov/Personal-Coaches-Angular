@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { ICourse } from 'src/app/Interfaces/course';
-import { UserService } from 'src/app/user/userService';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-course-list-item',

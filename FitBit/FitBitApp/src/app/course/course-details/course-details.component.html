@@ -5,23 +5,25 @@
     mode="indeterminate"
   ></mat-progress-spinner>
 
-  <h4>{{ course!.title }}</h4>
-  <div class="course-desc">
-    <div class="course-desc-item">
-      <div *ngFor="let img of course!.images">
-        <img [src]="img" alt="course-image" />
+  <div *ngIf="course">
+    <h4>{{ course!.title }}</h4>
+    <div class="course-desc">
+      <div class="course-desc-item">
+        <div *ngFor="let img of course!.images">
+          <img [src]="img" alt="course-image" />
+        </div>
       </div>
-    </div>
-    <div class="course-desc-item">
-      <p>{{ course!.content }}</p>
-
-      <div *ngIf="course!.createdBy == userId" class="course-btns-section">
-        <button class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button>
-        <button class="course-button" (click)="onDelete()">Delete</button>
-      </div>
-
-      <div *ngIf="course!.createdBy != userId">
-        <button class="course-button" routerLink="/consultation">Contact coach</button>
+      <div class="course-desc-item">
+        <p>{{ course!.content }}</p>
+  
+        <div *ngIf="course!.createdBy == userId" class="course-btns-section">
+          <button class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button>
+          <button class="course-button" (click)="onDelete()">Delete</button>
+        </div>
+  
+        <div *ngIf="course!.createdBy != userId">
+          <button class="course-button" routerLink="/consultation">Contact coach</button>
+        </div>
       </div>
     </div>
   </div>

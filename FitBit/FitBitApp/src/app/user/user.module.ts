@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
 import { RegisterComponent } from './register/register.component';
-import { UserService } from './userService';
+import { UserService } from './user.service';
 import { SharedModule } from '../shared/shared.module';
 import { EditComponent } from './edit/edit.component';
 
