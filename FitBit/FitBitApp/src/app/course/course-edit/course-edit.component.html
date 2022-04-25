@@ -1,38 +1,80 @@
 <section id="edit-page">
+  <div class="edit">
+    <form
+      [formGroup]="editForm"
+      action=""
+      method="post"
+      (ngSubmit)="edit()"
+      class="edit-form"
+    >
+      <label class="edit-data">Edit data</label>
 
-        <div class="edit">
+      <label class="edit-course-labels">Title:</label>
+      <input
+        type="text"
+        name="title"
+        formControlName="title"
+        id="title"
+        #title
+      />
+      <ng-container *ngIf="editForm.get('title')?.touched">
+        <p *ngIf="editForm.get('title')?.errors?.['required']" class="error">
+          Title is required!
+        </p>
+      </ng-container>
 
-            <form [formGroup]="editForm" action="" method="post" (ngSubmit)="edit()" class="edit-form">
-                <label class="edit-data">Edit data</label>
+      <label class="edit-course-labels">Content:</label>
+      <textarea
+        type="text"
+        name="content"
+        formControlName="content"
+        class="course-content"
+      ></textarea>
 
-                <input type="text" name="title" formControlName="title"  id="title" #title>
-                <ng-container *ngIf="editForm.get('title')?.touched">
-                    <p *ngIf="editForm.get('title')?.errors?.['required']" class="error">
-                      Title is required!
-                    </p>
-                </ng-container>
+      <ng-container *ngIf="editForm.get('content')?.touched">
+        <p *ngIf="editForm.get('content')?.errors?.['required']" class="error">
+          Content is required!
+        </p>
+      </ng-container>
 
-                <textarea type="text" name="content" formControlName="content" class="course-content"></textarea>
-
-                <ng-container *ngIf="editForm.get('content')?.touched">
-                    <p *ngIf="editForm.get('content')?.errors?.['required']" class="error">
-                      Content is required!
-                    </p>
-                </ng-container>
-
-                  <div class="images-checkboxes">
-                    <div *ngFor="let image of course!.images" class="checkbox-container">
-                      <input type="checkbox" name="images" formControlName="images" checked id="check"> 
-                      <label for="check" class="label-imgs">{{image}}</label>
-                    </div>
-                    <!-- {{image}} -->
-                  </div>
-
-                <button>Update</button>
-                <!-- <button [routerLink]="['/profile', userId]" type="button">Cancel</button> -->
-            </form>
-
+      <label class="edit-course-labels">Course images:</label>
+      <div class="images-checkboxes">
+        <div class="image-container" *ngIf="course?.images">
+          <div *ngFor="let image of course?.images" class="checkbox-container">
+            <input
+              type="checkbox"
+              name="images"
+              formControlName="images"
+              checked
+              id="check"
+              (change)="includeExcludeImg(image, $event)"
+            />
+            <label for="check" class="label-imgs">{{ image.substring(0, 200) }}</label>
+          </div>
         </div>
+        <div class="add-img">
+          <input
+            class="add-img-input"
+            type="text"
+            name="newImg"
+            formControlName="newImg"
+            id="newImg"
+            #newImg
+          />
+          <!-- <ng-container *ngIf="editForm.get('newImg')?.touched">
+            <p *ngIf="editForm.get('newImg')?.errors?.['required']" class="error">
+              Image url is required!
+            </p>
+          </ng-container> -->
+          <button class="add-img-btn" (click)="addImg()">Add</button>
+        </div>
+      </div>
 
-
+      <div class="edit-course-btns">
+        <button type="submit">Update</button>
+        <button [routerLink]="['/my-courses', course!.id]">Cancel</button>
+      </div>
+      <!-- <button [routerLink]="['/profile', userId]" type="button">Cancel</button> -->
+    </form>
+  </div>
 </section>
