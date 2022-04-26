@@ -10,18 +10,13 @@ import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
   {
-    path: 'our-coaches',
+    path: 'my-coaches',
     component: UserListComponent
     // TODO: there should be filtering if the user is logged-in
   },
   {
-    path: 'my-coaches',
+    path: 'coaches',
     component: UserListComponent,
-    canActivate: [AuthActivate],
-    data: {
-      authenticationRequired: true,
-      authenticationFailureRedirectUrl: '/',
-    }
   },
   {
     path: 'coach/:name',

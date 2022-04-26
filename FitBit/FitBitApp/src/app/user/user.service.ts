@@ -111,6 +111,10 @@ export class UserService{
     );
   }
 
+  getCoaches() {
+    return this.http.get<IUser[]>(`${apiURL}/user/coaches`, {});
+  }
+
   private GetToken(){
     return localStorage.getItem('token')!;
   }

@@ -31,6 +31,19 @@ public class UserController : ControllerBase
         return Ok(users);
     }
 
+    [HttpGet("[action]")]
+    public async Task<IActionResult> Coaches()
+    {
+        var users = await _userService.GetAllCoachessAsync();
+
+        if (users == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(users);
+    }
+
     [Authorize]
     [HttpGet("[action]")] // old - {id:length(24)}, TODO- take id from header, not from query
     [NeedsUserId] 

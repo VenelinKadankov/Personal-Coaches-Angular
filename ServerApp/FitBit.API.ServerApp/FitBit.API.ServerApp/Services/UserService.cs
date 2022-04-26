@@ -231,4 +231,30 @@ public class UserService : BaseService<User>, IUserService
             Role = user.Role.ToString(),
             Courses = user.Courses,
         };
+
+    public async Task<List<UserViewModel>> GetAllCoachessAsync()
+    {
+        var users = await GetAsync();
+
+        if (users == null)
+        {
+            return null;
+        }
+
+        var coaches = users.Where(u => u.Role.ToString() == "Coach");
+
+        if(coaches == null)
+        {
+            return null;
+        }
+
+        var result = new List<UserViewModel>();
+
+        foreach (var coach in coaches)
+        {
+            result.Add(ToViewModel(coach));
+        }
+
+        return result;
+    }
 }

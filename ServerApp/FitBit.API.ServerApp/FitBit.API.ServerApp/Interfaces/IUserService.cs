@@ -8,6 +8,8 @@ public interface IUserService : IBaseService<User>
 {
     public Task<List<UserViewModel>> GetAllUserViewModelsAsync();
 
+    public Task<List<UserViewModel>> GetAllCoachessAsync();
+
     public Task<string> CreateTokenAsync(string userName, string password);
 
     public Task<UserViewModel> GetSingleUserAsync(string id);

@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserService } from './user.service';
 import { SharedModule } from '../shared/shared.module';
 import { EditComponent } from './edit/edit.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -28,6 +29,7 @@ import { EditComponent } from './edit/edit.component';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     UserService

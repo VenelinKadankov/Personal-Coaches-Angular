@@ -1,3 +1,19 @@
 <div class="container">
-  <p>user-list works!</p>
+  <p>user-list works!djhfhgffjf</p>
 </div>
+
+<h2>The best coaches!</h2>
+<section id="coaches">
+
+  <mat-progress-spinner *ngIf="!coaches" value="50" mode="indeterminate"></mat-progress-spinner>
+  
+  <div class="error" *ngIf="errorLoadingCoaches">Error loading coaches! Check your connection!</div>
+  
+  <!-- <div *ngIf="coaches"> -->
+    <!-- <button (click)="reloadButtonHandler()">Reload</button>
+    <button (click)="searchButtonHandler(searchInput)">Search</button> -->
+    <!-- <div id="container">
+      <app-coach-info *ngFor="let coach of coaches" [coach]="coach"></app-coach-info>
+    </div>
+  </div> -->
+</section>
