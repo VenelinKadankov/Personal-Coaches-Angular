@@ -17,8 +17,8 @@ public class CourseViewModel
     public List<string>? Images { get; set; }
 
     [JsonPropertyName("createdBy")]
-    public string CreatedBy { get; set; } = null!;
+    public string? CreatedBy { get; set; } = null!;
 
     [JsonPropertyName("subscribers")]
-    public List<string> Subscribers { get; set; } = null!;
+    public List<string>? Subscribers { get; set; } = null!;
 }

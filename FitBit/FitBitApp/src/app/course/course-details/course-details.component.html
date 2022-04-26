@@ -18,7 +18,7 @@
   
         <div *ngIf="course!.createdBy == userId" class="course-btns-section">
           <button class="course-button"  type="button" [routerLink]="['/my-courses', course!.id, 'edit']" [id]="course!.id">Edit</button>
-          <button class="course-button" (click)="onDelete()">Delete</button>
+          <button class="course-button" (click)="deleteCourse()">Delete</button>
         </div>
   
         <div *ngIf="course!.createdBy != userId">

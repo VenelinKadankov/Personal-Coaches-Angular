@@ -46,12 +46,12 @@ public class CourseService : BaseService<Course>, ICourseService
 
     public async Task<bool> EditCourseAsync(string id, CourseInputModel model)
     {
-        if (id == null || model == null || model.Content == null || model.Title == null || model.Images == null)
+        if (id == null || model == null || model.Id == null || model.Content == null || model.Title == null || model.Images == null || model.Creator == null)
         {
             return false;
         }
 
-        var course = await GetAsync(id);
+        var course = await GetAsync(model.Id);
 
         if (course == null)
         {
@@ -61,9 +61,10 @@ public class CourseService : BaseService<Course>, ICourseService
         course.Content = model.Content;
         course.Title = model.Title;
         course.Images = model.Images;
-       // course.Subscribers = model.su TODO: change the input model
+        course.CreatedBy = model.Creator;
+        course.Subscribers = model.Subscribers;
 
-        await UpdateAsync(id, course);
+        await UpdateAsync(model.Id, course);
 
         return true;
     }

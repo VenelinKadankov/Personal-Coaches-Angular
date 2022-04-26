@@ -10,6 +10,7 @@ import { CoursesRoutingModule } from './course-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserModule } from '../user/user.module';
+import { AllCoursesComponent } from './all-courses/all-courses.component';
 
 
 
@@ -19,7 +20,8 @@ import { UserModule } from '../user/user.module';
     CourseDetailsComponent,
     CourseCreateComponent,
     CourseEditComponent,
-    CourseListItemComponent
+    CourseListItemComponent,
+    AllCoursesComponent
   ],
   imports: [
     CommonModule,

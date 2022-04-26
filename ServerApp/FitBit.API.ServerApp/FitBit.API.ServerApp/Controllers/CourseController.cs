@@ -78,8 +78,10 @@ public class CourseController : ControllerBase
     [Authorize]
     [HttpPut("[action]")]
     [NeedsUserId]
-    public async Task<IActionResult> Edit([FromQuery] string id, [FromBody] CourseInputModel model)
+    public async Task<IActionResult> Edit([FromBody] CourseInputModel model)
     {
+        var id = this.HttpContext.Request.Headers["uid"];
+
         var result = await _courseService.EditCourseAsync(id, model);
 
         if (result == false)
@@ -93,8 +95,10 @@ public class CourseController : ControllerBase
     [Authorize]
     [HttpDelete("[action]")]
     [NeedsUserId]
-    public async Task<IActionResult> Delete([FromQuery] string id)
+    public async Task<IActionResult> Delete()
     {
+        var id = this.HttpContext.Request.Headers["uid"];
+
         var result = await _courseService.DeleteCourseAsync(id);
 
         if (result == false)

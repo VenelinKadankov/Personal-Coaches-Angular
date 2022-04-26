@@ -19,14 +19,14 @@ export class CourseService {
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.course = null;
-   }
+  }
 
   //  ngOnInit(): void {
   //    let courseId = this.route.snapshot.paramMap.get('id')!;
   //   this.getSingleCourse(courseId);
   //  }
 
-  update(title: string, content: string, imgs: string[], subscribers: string[]) {
+  update(id: string, title: string, content: string, imgs: string[], subscribers: string[]) {
     let token = this.GetToken();
 
     if (!this.userService.user || !this.userService.user.userId) {
@@ -36,7 +36,7 @@ export class CourseService {
 
     if (title && content && imgs && subscribers) {
       return this.http.put<boolean>(`${apiURL}/course/edit`,
-        {},
+        { id, title, content, 'images': imgs, 'creator': this.userService.user.userId, 'subscribers': subscribers || [] },
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export class CourseService {
   deleteCourse(id: string) {
     let token = this.GetToken();
 
-    return this.http.delete<boolean>(`${apiURL}/course/delete?id=${id}`, {
+    return this.http.delete<boolean>(`${apiURL}/course/delete`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,

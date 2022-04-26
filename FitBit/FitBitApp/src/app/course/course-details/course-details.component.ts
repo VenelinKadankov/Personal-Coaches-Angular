@@ -42,7 +42,11 @@ export class CourseDetailsComponent implements OnInit {
     });
   }
 
-  onDelete(): void {
+  deleteCourse(): void {
+    if(!confirm("Are you sure you want to delete that course?")){
+      return;
+    }
+
     if(this.courseId){
       this.courseService.deleteCourse(this.courseId!).subscribe({
         next: (result) => { this.deleteSuccess = result },

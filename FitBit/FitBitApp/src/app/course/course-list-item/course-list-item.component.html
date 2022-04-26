@@ -9,8 +9,8 @@
       </div>
     <div class="button-container">
       <button type="button" [routerLink]="['/my-courses', course!.id]" [id]="course!.id">Details</button>
-      <button *ngIf="course!.subscribers.includes(userId!)" type="button">Unsubscribe</button>
-      <button *ngIf="!course!.subscribers.includes(userId!)" type="button">Subscribe</button>
+      <button *ngIf="course!.subscribers.includes(userId!) && userId != course!.createdBy" type="button">Unsubscribe</button>
+      <button *ngIf="!course!.subscribers.includes(userId!) && userId != course!.createdBy" type="button">Subscribe</button>
     </div>
     </div>
   </div>
