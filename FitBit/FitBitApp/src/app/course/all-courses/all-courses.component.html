@@ -1,1 +1,15 @@
-<p>all-courses works!</p>
+<section id="all-courses">
+    <h2>Welcome to the best coach-athlete connecting system!</h2>
+
+    <mat-progress-spinner *ngIf="!courses" value="50" mode="indeterminate"></mat-progress-spinner>
+    
+    <div class="error" *ngIf="errorLoadingCourses">Error loading courses! Check your connection!</div>
+    
+    <div *ngIf="courses">
+      <!-- <button (click)="reloadButtonHandler()">Reload</button>
+      <button (click)="searchButtonHandler(searchInput)">Search</button> -->
+      <div id="container">
+        <app-course-list-item *ngFor="let course of courses" [course]="course"></app-course-list-item>
+      </div>
+    </div>
+</section>

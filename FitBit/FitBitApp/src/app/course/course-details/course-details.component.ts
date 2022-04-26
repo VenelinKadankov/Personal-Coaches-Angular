@@ -23,7 +23,7 @@ export class CourseDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.courseId = this.route.snapshot.paramMap.get('id')!;
-    this.userId = this.userService.user!.userId;
+    this.userId = this.userService.user?.userId;
     this.loadCourse();
   }
 

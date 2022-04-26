@@ -50,6 +50,16 @@ const routes: Routes = [
       authenticationFailureRedirectUrl: '/',
     }
   }
+  ,
+  {
+    path: 'all-courses/:id',
+    component: CourseDetailsComponent,
+    canActivate: [AuthActivate],
+    data: {
+      authenticationRequired: true,
+      authenticationFailureRedirectUrl: '/register',
+    }
+  }
 ];
 
 @NgModule({
