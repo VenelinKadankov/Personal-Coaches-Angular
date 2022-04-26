@@ -9,11 +9,11 @@ import { RegisterComponent } from './register/register.component';
 import { UserListComponent } from './user-list/user-list.component';
 
 const routes: Routes = [
-  {
-    path: 'my-coaches',
-    component: UserListComponent
-    // TODO: there should be filtering if the user is logged-in
-  },
+  // {
+  //   path: 'my-coaches',
+  //   component: UserListComponent
+  //   // TODO: there should be filtering if the user is logged-in
+  // },
   {
     path: 'coaches',
     component: UserListComponent,

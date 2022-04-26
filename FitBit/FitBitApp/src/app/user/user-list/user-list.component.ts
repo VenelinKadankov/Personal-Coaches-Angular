@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CourseService } from 'src/app/course/course.service';
+import { ICourse } from 'src/app/Interfaces/course';
 import { IUser } from 'src/app/Interfaces/user';
 import { UserService } from '../user.service';
 
@@ -10,6 +12,7 @@ import { UserService } from '../user.service';
 })
 export class UserListComponent implements OnInit {
   coaches: IUser[] | undefined | null;
+
   errorLoadingCoaches = false;
 
   constructor(private userService: UserService, private router: Router) { }
@@ -19,14 +22,14 @@ export class UserListComponent implements OnInit {
 
     this.userService.getCoaches().subscribe({
       next: (coaches) => {
-        this.coaches = coaches
-        console.log(coaches)
+        this.coaches = coaches;
+        console.log(coaches);
       },
       error: (err) => {
         this.errorLoadingCoaches = true;
         this.router.navigate(['**', { 'status': err.status }]);
       }
-    })
+    });
   }
 
 }

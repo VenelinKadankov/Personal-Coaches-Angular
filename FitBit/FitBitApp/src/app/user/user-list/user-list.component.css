@@ -1,0 +1,18 @@
+#coaches{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#container-coaches{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 4%;
+    justify-content: space-evenly; 
+    align-items: center;
+}
+
+h2{
+    margin: auto;
+}
