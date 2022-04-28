@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'coaches',
     component: UserListComponent,
+    data: {
+      authenticationRequired: false,
+      authenticationFailureRedirectUrl: '/',
+    }
   },
   {
     path: 'coach/:name',

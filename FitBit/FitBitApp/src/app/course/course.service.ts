@@ -45,7 +45,8 @@ export class CourseService {
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`, 'uid': this.userService.user?.userId!
+            //'Authorization': `Bearer ${token}`,
+            //'uid': this.userService.user?.userId!
           })
         }).pipe(
           tap((res) => this.isEditted = res)
@@ -74,8 +75,8 @@ export class CourseService {
     return this.http.get<ICourse[]>(`${apiURL}/course/myCourses`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'uid': id
+        //'Authorization': `Bearer ${token}`,
+        //'uid': id
       })
     }).pipe(
       tap((courses) => this.myCourses = courses)
@@ -98,8 +99,8 @@ export class CourseService {
     return this.http.delete<boolean>(`${apiURL}/course/delete`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-        'uid': id
+        //'Authorization': `Bearer ${token}`,
+        //'uid': id
       })
     }).pipe(
       tap(() => this.allCourses = [])

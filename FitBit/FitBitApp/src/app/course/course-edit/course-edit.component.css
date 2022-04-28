@@ -26,7 +26,7 @@
 }
 
 .edit-data {
-  color: #573b8a;
+  color: #364857;
   font-size: 2.3em;
   justify-content: center;
   display: flex;
@@ -37,7 +37,7 @@
 }
 
 .edit-course-labels{
-	color: #573b8a;
+	color: #364857;
 	font-size: 1.3em;
 	justify-content: center;
 	display: flex;
@@ -71,7 +71,7 @@ button {
   justify-content: center;
   display: block;
   color: #fff;
-  background: #573b8a;
+  background: #364857;
   font-size: 1em;
   font-weight: bold;
   /* margin-top: 20px; */
@@ -82,7 +82,7 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background: #6d44b8;
+  background: #55626e;
 }
 
 .login-redirect {
@@ -95,7 +95,7 @@ button:hover {
 
 .login-btn {
   padding-bottom: 1rem;
-  color: #573b8a;
+  color: #364857;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;

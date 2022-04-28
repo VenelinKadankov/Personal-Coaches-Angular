@@ -8,6 +8,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LocalStorage } from './injection-tokens';
 import { AuthActivate } from './guard/auth.activate';
 import { HttpClientModule } from '@angular/common/http';
+import { headersInterceptorProvider } from './interceptors/attach-headers-interceptor';
+import { errorInterceptorProvider } from './interceptors/error-interceptor';
+import { globalErrorHandlerProvider } from './error-handler';
 
 
 @NgModule({
@@ -65,7 +68,9 @@ import { HttpClientModule } from '@angular/common/http';
     },
     deps: [PLATFORM_ID]
   },
-    AuthActivate
+    AuthActivate,
+    headersInterceptorProvider,
+    globalErrorHandlerProvider
   ]
 })
 export class CoreModule { }

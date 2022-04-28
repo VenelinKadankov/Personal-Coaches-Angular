@@ -19,7 +19,7 @@
  }
 
  .user-profile button{
-   background-color:  #573b8a;
+   background-color:  #364857;
    padding: 0.5rem 2rem;
    border: none;
    border-radius: 5px;
@@ -33,7 +33,7 @@
  }
 
  .user-profile button:hover{
-   background-color: #6d44b8;
+   background-color: #55626e;
  }
 
 .img-container{
@@ -74,7 +74,7 @@
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #364857;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 20px;
@@ -85,14 +85,14 @@
 	cursor: pointer;
 }
 button:hover{
-	background: #6d44b8;
+	background: #55626e;
 }
 
 .my-courses-btn{
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #364857;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 20px;
@@ -104,7 +104,7 @@ button:hover{
 	cursor: pointer;
 }
 .my-courses-btn:hover{
-  background: #6d44b8;
+  background: #55626e;
 }
 
 .course-img{

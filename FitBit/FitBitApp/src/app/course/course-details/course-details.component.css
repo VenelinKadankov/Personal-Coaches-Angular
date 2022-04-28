@@ -44,7 +44,7 @@
     color: #ffffff;
     border-radius: 30px;
     cursor: pointer; */
-    background-color:  #573b8a;
+    background-color:  #364857;
     padding: 0.5rem 4rem;
     border: none;
     border-radius: 5px;
@@ -54,5 +54,5 @@
 }
 
 .course-button:hover {
-    background-color: #6d44b8;
+    background-color: #55626e;
 }

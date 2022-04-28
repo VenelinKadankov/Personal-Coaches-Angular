@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getUser().subscribe({
-      error: (err) => console.log(err)
+      error: () => {}
     });
   }
 }
