@@ -13,6 +13,7 @@
           <a href="#"><i class="fa fa-linkedin"></i></a>
           <a href="#"><i class="fa fa-facebook"></i></a>
       </div>
-      <p><button>See courses</button></p>
+      <p><button *ngIf="user" routerLink="/all-courses">See courses</button></p>
+      <p><button *ngIf="!user" routerLink="/login">Login to see courses</button></p>
   </div>
 </div>

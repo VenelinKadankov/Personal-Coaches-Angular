@@ -1,7 +1,7 @@
+<mat-progress-spinner class="spinner" *ngIf="!coaches" value="50" mode="indeterminate"></mat-progress-spinner>
 <section id="coaches">
   <h2>The best coaches!</h2>
 
-  <mat-progress-spinner *ngIf="!coaches" value="50" mode="indeterminate"></mat-progress-spinner>
   
   <div class="error" *ngIf="errorLoadingCoaches">Error loading coaches! Check your connection!</div>
   

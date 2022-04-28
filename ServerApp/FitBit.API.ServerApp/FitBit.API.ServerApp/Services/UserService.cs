@@ -44,6 +44,8 @@ public class UserService : BaseService<User>, IUserService
             Name = model.Name,
             Password = this._hashService.GetHash(model.Password),
             Email = model.Email,
+            Telephone = model.Tel,
+            ProfileImg = model.ProfileImg,
             Courses = model.Courses,
             Role = (Role)Enum.Parse(typeof(Role), model.Role, true),
             IsAdmin = model.IsAdmin,

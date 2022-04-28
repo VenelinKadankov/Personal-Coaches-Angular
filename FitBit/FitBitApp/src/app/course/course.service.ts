@@ -26,8 +26,13 @@ export class CourseService {
   //   this.getSingleCourse(courseId);
   //  }
 
-  update(id: string, title: string, content: string, imgs: string[], subscribers: string[]) {
+  update(id: string, title: string, content: string, imgs: string[], subscribers: string[], creatorId: string = '') {
     let token = this.GetToken();
+    let creator = this.userService!.user!.userId;
+
+    if(creatorId !== ''){
+      creator = creatorId;
+    }
 
     if (!this.userService.user || !this.userService.user.userId) {
       throw new Error("No user currenty logged!");
@@ -36,7 +41,7 @@ export class CourseService {
 
     if (title && content && imgs && subscribers) {
       return this.http.put<boolean>(`${apiURL}/course/edit`,
-        { id, title, content, 'images': imgs, 'creator': this.userService.user.userId, 'subscribers': subscribers || [] },
+        { id, title, content, 'images': imgs, creator, 'subscribers': subscribers || [] },
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',

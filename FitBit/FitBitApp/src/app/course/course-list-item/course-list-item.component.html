@@ -4,14 +4,38 @@
     <img [src]="course!.images[0]" alt="course-image" />
     <div class="course-description">
       <div>
-        <h3>Author: {{coachName}}</h3>
+        <h3>Author: {{ coachName }}</h3>
         <p>{{ course!.content.substring(0, 100) }}...</p>
       </div>
-    <div class="button-container">
-      <button type="button" [routerLink]="['/all-courses', course!.id]" [id]="course!.id">Details</button>
-      <button *ngIf="course!.subscribers.includes(userId!) && userId != course!.createdBy" type="button">Unsubscribe</button>
-      <button *ngIf="user && !course!.subscribers.includes(userId!) && userId != course!.createdBy" type="button">Subscribe</button>
-    </div>
+      <div class="button-container">
+        <button
+          type="button"
+          [routerLink]="['/all-courses', course!.id]"
+          [id]="course!.id"
+        >
+          Details
+        </button>
+        <button
+          *ngIf="
+            course!.subscribers.includes(userId!) && userId != course!.createdBy
+          "
+          type="button"
+          (click)="unsubscribe(course!.id)"
+        >
+          Unsubscribe
+        </button>
+        <button
+          *ngIf="
+            user &&
+            !course!.subscribers.includes(userId!) &&
+            userId != course!.createdBy
+          "
+          type="button"
+          (click)="subscribe(course!.id)"
+        >
+          Subscribe
+        </button>
+      </div>
     </div>
   </div>
 </article>

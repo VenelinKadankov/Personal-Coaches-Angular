@@ -113,7 +113,7 @@ public class UserController : ControllerBase
 
         if (result == false)
         {
-            return BadRequest();
+            return BadRequest("Empty fields or email exists");
         }
 
         return Ok(result);

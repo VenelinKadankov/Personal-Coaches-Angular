@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ICourse } from 'src/app/Interfaces/course';
 import { IUser } from 'src/app/Interfaces/user';
 import { UserService } from 'src/app/user/user.service';
+import { CourseService } from '../course.service';
 
 @Component({
   selector: 'app-course-list-item',
@@ -17,7 +18,7 @@ export class CourseListItemComponent implements OnInit {
   coaches: IUser[] | undefined | null;
   coachName: string | undefined | null;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private courseService: CourseService) { }
 
   ngOnInit(): void {
     this.user = this.userService.user;
@@ -29,9 +30,32 @@ export class CourseListItemComponent implements OnInit {
         this.coachName = coaches.find(c => c.userId == this.course?.createdBy)?.name;
       },
       error: (err) => {
-         // TODO 
+        // TODO 
       }
     })
   }
 
+  subscribe(courseId: string) {
+    this.course?.subscribers.push(this.userId!);
+
+    this.updateUser();
+  }
+
+  unsubscribe(courseId: string) {
+    let userIndex = this.course?.subscribers.indexOf(this.userId!)
+    this.course?.subscribers.splice(userIndex!, 1);
+
+    this.updateUser();
+  }
+
+  private updateUser() {
+    this.courseService.update(
+      this.course!.id,
+      this.course!.title,
+      this.course!.content,
+      this.course!.images,
+      this.course!.subscribers,
+      this.course!.createdBy
+    ).subscribe();
+  }
 }

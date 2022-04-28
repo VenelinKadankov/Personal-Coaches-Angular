@@ -40,7 +40,8 @@ export class RegisterComponent implements OnDestroy {
       let profileImg = this.registerForm.value.profileImg;
 
       this.userService.register(name, email, tel, profileImg, password).subscribe({
-        next: () => {
+        next: (res) => {
+          this.userService.login(email, password).subscribe();
           this.router.navigate(['/']);
         },
         error: (err) => {
