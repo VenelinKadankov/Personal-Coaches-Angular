@@ -16,6 +16,7 @@ export class CourseService {
   allCourses: ICourse[] | undefined | null;
   myCourses: ICourse[] | undefined | null;
   isEditted: boolean = false;
+  isCreated: boolean = false;
 
   constructor(private http: HttpClient, private userService: UserService) {
     this.course = null;
@@ -25,6 +26,36 @@ export class CourseService {
   //    let courseId = this.route.snapshot.paramMap.get('id')!;
   //   this.getSingleCourse(courseId);
   //  }
+
+  createCourse(title: string, content: string, images: string[], subscribers: string[]){
+    let token = this.GetToken();
+    let creator = this.userService!.user!.userId;
+
+    if (!this.userService.user || !this.userService.user.userId) {
+      throw new Error("No user currenty logged!");
+      ;
+    }
+
+    if(this.userService!.user?.role != 'Coach'){
+      throw new Error("You are not allowed there!");
+    }
+
+    if (title && content && images && subscribers) {
+      return this.http.post<boolean>(`${apiURL}/course/create`,
+        { title, content, images, creator, 'subscribers': [] },
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'uid': this.userService.user?.userId!
+          })
+        }).pipe(
+          tap((res) => this.isCreated = res)
+        );
+    } else {
+      throw 'Unsuccessfull creation';
+    }
+  }
 
   update(id: string, title: string, content: string, imgs: string[], subscribers: string[], creatorId: string = '') {
     let token = this.GetToken();
@@ -45,8 +76,8 @@ export class CourseService {
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
-            //'Authorization': `Bearer ${token}`,
-            //'uid': this.userService.user?.userId!
+            'Authorization': `Bearer ${token}`,
+            'uid': this.userService.user?.userId!
           })
         }).pipe(
           tap((res) => this.isEditted = res)
@@ -75,8 +106,8 @@ export class CourseService {
     return this.http.get<ICourse[]>(`${apiURL}/course/myCourses`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        //'Authorization': `Bearer ${token}`,
-        //'uid': id
+        'Authorization': `Bearer ${token}`,
+        'uid': id
       })
     }).pipe(
       tap((courses) => this.myCourses = courses)
@@ -99,8 +130,8 @@ export class CourseService {
     return this.http.delete<boolean>(`${apiURL}/course/delete`, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        //'Authorization': `Bearer ${token}`,
-        //'uid': id
+        'Authorization': `Bearer ${token}`,
+        'uid': id
       })
     }).pipe(
       tap(() => this.allCourses = [])

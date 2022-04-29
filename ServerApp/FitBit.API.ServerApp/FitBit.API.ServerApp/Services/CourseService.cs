@@ -15,7 +15,7 @@ public class CourseService : BaseService<Course>, ICourseService
 
     public async Task<bool> CreateCourseAsync(CourseInputModel model)
     {
-        if (model == null || model.Content == null || model.Title == null || model.Images == null)
+        if (model == null || model.Content == null || model.Title == null || model.Images == null || model.Creator == null || model.Subscribers == null)
         {
             return false;
         }
@@ -24,7 +24,9 @@ public class CourseService : BaseService<Course>, ICourseService
         {
             Content = model.Content,
             Title = model.Title,
-            Images = model.Images
+            Images = model.Images,
+            CreatedBy = model.Creator,
+            Subscribers = model.Subscribers,
         };
 
         await CreateAsync(course);
@@ -126,8 +128,8 @@ public class CourseService : BaseService<Course>, ICourseService
             Id = course.Id,
             Content = course.Content,
             Title = course.Title,
-            Images = course.Images.ToList(),
+            Images = course.Images?.ToList(),
             CreatedBy = course.CreatedBy,
-            Subscribers = course.Subscribers.ToList(),
+            Subscribers = course.Subscribers?.ToList(),
         };
 }

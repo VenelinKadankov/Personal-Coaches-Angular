@@ -1,15 +1,23 @@
-<mat-progress-spinner class="spinner" *ngIf="!coaches" value="50" mode="indeterminate"></mat-progress-spinner>
-<section id="coaches">
+<div class="coaches-section">
   <h2>The best coaches!</h2>
-
-  
-  <div class="error" *ngIf="errorLoadingCoaches">Error loading coaches! Check your connection!</div>
-  
-  <div *ngIf="coaches">
-    <!-- <button (click)="reloadButtonHandler()">Reload</button>
-    <button (click)="searchButtonHandler(searchInput)">Search</button> -->
-    <div id="container-coaches">
-      <app-coach-info *ngFor="let coach of coaches" [coach]="coach"></app-coach-info>
+  <mat-progress-spinner
+    class="spinner"
+    *ngIf="!coaches"
+    value="50"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+  <section id="coaches">
+    <div class="error" *ngIf="errorLoadingCoaches">
+      Error loading coaches! Check your connection!
     </div>
-  </div>
-</section>
+
+    <div *ngIf="coaches">
+      <div id="container-coaches">
+        <app-coach-info
+          *ngFor="let coach of coaches"
+          [coach]="coach"
+        ></app-coach-info>
+      </div>
+    </div>
+  </section>
+</div>

@@ -69,8 +69,8 @@ import { globalErrorHandlerProvider } from './error-handler';
     deps: [PLATFORM_ID]
   },
     AuthActivate,
-    headersInterceptorProvider,
-    globalErrorHandlerProvider
+   // headersInterceptorProvider,
+   // globalErrorHandlerProvider
   ]
 })
 export class CoreModule { }

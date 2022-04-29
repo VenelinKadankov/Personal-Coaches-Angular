@@ -56,8 +56,8 @@ export class UserService{
     return this.http.post<IUser>(`${apiURL}/user/logout`, {},
       {
         headers: new HttpHeaders({
-          //'Authorization': `Bearer ${token}`,
-          //'uid': this.user?.userId! 
+          'Authorization': `Bearer ${token}`,
+          'uid': this.user?.userId! 
         })
       }).pipe(
         tap(() => 
@@ -93,8 +93,8 @@ export class UserService{
         { 'id': this.user.userId, name, email, tel, profileImg },
         { headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          //'Authorization': `Bearer ${token}`,
-          //'uid': this.user?.userId! 
+          'Authorization': `Bearer ${token}`,
+          'uid': this.user?.userId! 
         }) 
         }).pipe(
           tap((user) => this.user = user)
@@ -106,7 +106,7 @@ export class UserService{
 
   getUser() {
     let token = this.GetToken();
-    
+
     return this.http.get<IUser>(`${apiURL}/user/profile`, { 
       headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`})//, 'uid': this.user?.userId! 
      }).pipe(

@@ -27,6 +27,9 @@
       </ng-container>
 
       <ng-container class="user-buttons" *ngIf="isLogged">
+        <li *ngIf="isCoach">
+          <a routerLink="/create" routerLinkActive="active">Create course</a>
+        </li>
         <li>
           <a routerLink="/all-courses" routerLinkActive="active">All courses</a>
         </li>

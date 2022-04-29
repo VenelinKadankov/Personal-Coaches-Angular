@@ -12,4 +12,10 @@
         <app-course-list-item *ngFor="let course of courses" [course]="course"></app-course-list-item>
       </div>
     </div>
+    <div *ngIf="courses && !courses[0]">
+      <div class="no-courses">
+        <p>You have not started any course.</p>
+        <button routerLink="/all-courses">Go to courses</button>
+      </div>
+    </div>
 </section>

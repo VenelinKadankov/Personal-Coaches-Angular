@@ -23,11 +23,11 @@ export class UserListComponent implements OnInit {
     this.userService.getCoaches().subscribe({
       next: (coaches) => {
         this.coaches = coaches;
-        console.log(coaches);
+       // console.log(coaches);
       },
       error: (err) => {
         this.errorLoadingCoaches = true;
-        this.router.navigate(['**', { 'status': err.status }]);
+       // this.router.navigate(['**', { 'status': err.status }]);
       }
     });
   }

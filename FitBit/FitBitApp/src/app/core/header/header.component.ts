@@ -19,6 +19,10 @@ export class HeaderComponent {
     return this.userService.user?.userId!;
   }
 
+  get isCoach(): boolean {
+    return this.userService.user?.role == 'Coach';
+  }
+
   get username(): string {
     return this.userService.userWithToken?.user.name || '';
   }

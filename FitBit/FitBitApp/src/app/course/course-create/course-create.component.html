@@ -1,1 +1,77 @@
-<p>course-create works!</p>
+<section id="create-page">
+    <div class="create">
+      <form
+        [formGroup]="createForm"
+        action=""
+        method="post"
+        (ngSubmit)="create()"
+        class="create-form"
+      >
+        <label class="create-data">Create data</label>
+  
+        <label class="create-course-labels">Title:</label>
+        <input
+          type="text"
+          name="title"
+          formControlName="title"
+          id="title"
+          #title
+        />
+        <ng-container *ngIf="createForm.get('title')?.touched">
+          <p *ngIf="createForm.get('title')?.errors?.['required']" class="error">
+            Title is required!
+          </p>
+        </ng-container>
+  
+        <label class="create-course-labels">Content:</label>
+        <textarea
+          type="text"
+          name="content"
+          formControlName="content"
+          class="course-content"
+        ></textarea>
+  
+        <ng-container *ngIf="createForm.get('content')?.touched">
+          <p *ngIf="createForm.get('content')?.errors?.['required']" class="error">
+            Content is required!
+          </p>
+        </ng-container>
+  
+        <label class="create-course-labels">Course images:</label>
+        <div class="images-checkboxes">
+          <div class="image-container" *ngIf="courseImgs">
+            <div *ngFor="let image of courseImgs" class="checkbox-container">
+              <!-- <input
+              class="checkbox-input"
+                type="checkbox"
+                name="images"
+                formControlName="images"
+                checked
+                id="check"
+                (change)="includeExcludeImg(image, $event)"
+              /> -->
+              <label for="check" class="label-imgs">{{ image.substring(0, 200) }}</label>
+            </div>
+          </div>
+          <div class="add-img">
+            <input
+              class="add-img-input"
+              type="text"
+              name="newImg"
+              formControlName="newImg"
+              id="newImg"
+              #newImg
+            />
+            <button class="add-img-btn" type="button" (click)="addImg()">Add</button>
+          </div>
+        </div>
+  
+        <div class="create-course-btns">
+          <button type="submit">Create</button>
+          <button routerLink='/all-courses'>Cancel</button>
+        </div>
+        <!-- <button [routerLink]="['/profile', userId]" type="button">Cancel</button> -->
+      </form>
+    </div>
+  </section>
+  

@@ -35,7 +35,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'course/create',
+    path: 'create',
     component: CourseCreateComponent,
     data: {
       authenticationRequired: true,

@@ -12,7 +12,6 @@ import { CourseService } from '../course.service';
 export class CourseEditComponent implements OnInit {
 
   courseId: string | undefined | null;
-  // @Input() courseParam: ICourse | undefined | null;
 
   editForm: FormGroup;
   course: ICourse | undefined | null;

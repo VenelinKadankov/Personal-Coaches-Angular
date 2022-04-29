@@ -29,7 +29,7 @@ export class CoachInfoComponent implements OnInit {
     })
 
     this.userService.getUser().subscribe({
-      next: (user) => this.user = user 
+      next: (user) => this.user = user
     })
   }
 
