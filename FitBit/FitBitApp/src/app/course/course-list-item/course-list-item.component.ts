@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ICourse } from 'src/app/Interfaces/course';
 import { IUser } from 'src/app/Interfaces/user';
@@ -18,7 +19,7 @@ export class CourseListItemComponent implements OnInit {
   coaches: IUser[] | undefined | null;
   coachName: string | undefined | null;
 
-  constructor(private userService: UserService, private courseService: CourseService) { }
+  constructor(private userService: UserService, private courseService: CourseService, private router: Router) { }
 
   ngOnInit(): void {
     this.user = this.userService.user;
@@ -30,7 +31,7 @@ export class CourseListItemComponent implements OnInit {
         this.coachName = coaches.find(c => c.userId == this.course?.createdBy)?.name;
       },
       error: (err) => {
-        // TODO 
+        this.router.navigate(['**', { 'status': err.status }]);
       }
     })
   }
@@ -56,6 +57,9 @@ export class CourseListItemComponent implements OnInit {
       this.course!.images,
       this.course!.subscribers,
       this.course!.createdBy
-    ).subscribe();
+    ).subscribe(
+      {
+        error: (err) => this.router.navigate(['**', { 'status': err.status }])
+      });
   }
 }

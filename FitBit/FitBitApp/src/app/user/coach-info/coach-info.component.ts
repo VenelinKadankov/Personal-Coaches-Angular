@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CourseService } from 'src/app/course/course.service';
 import { ICourse } from 'src/app/Interfaces/course';
 import { IUser } from 'src/app/Interfaces/user';
@@ -15,7 +16,7 @@ export class CoachInfoComponent implements OnInit {
   user: IUser | undefined | null;
   coursesCount: number = 0;
 
-  constructor(private coursesService: CourseService, private userService: UserService) { }
+  constructor(private coursesService: CourseService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.coursesService.getAllCourses().subscribe({
@@ -24,13 +25,13 @@ export class CoachInfoComponent implements OnInit {
         this.coursesCount = courses.filter(c => c.createdBy == this.coach?.userId).length;
       },
       error: (err) => {
-        // TODO: 
+        this.router.navigate(['**', { 'status': err.status }]);
       }
     })
 
     this.userService.getUser().subscribe({
-      next: (user) => this.user = user
+      next: (user) => this.user = user,
+      error: (err) => this.router.navigate(['**', { 'status': err.status }])
     })
   }
-
 }

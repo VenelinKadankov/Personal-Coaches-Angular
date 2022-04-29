@@ -34,9 +34,9 @@ export class CourseDetailsComponent implements OnInit {
     this.courseService.getSingleCourse(this.courseId!)
     .subscribe({
       next: (course) => { this.course = course },
-      error: (error) => {
-        console.error(error);
+      error: (err) => {
         this.errorLoadingCourse = true;
+        this.router.navigate(['**', { 'status': err.status }]);
       },
       complete: () => console.log('load courses stream completed')
     });
@@ -50,8 +50,8 @@ export class CourseDetailsComponent implements OnInit {
     if(this.courseId){
       this.courseService.deleteCourse(this.courseId!).subscribe({
         next: (result) => { this.deleteSuccess = result },
-        error: (error) => {
-          console.error(error);
+        error: (err) => {
+          this.router.navigate(['**', { 'status': err.status }]);
         },
         complete: () => this.router.navigate(['/my-courses'])
       });

@@ -101,7 +101,7 @@ public class CourseService : BaseService<Course>, ICourseService
 
         var result = new List<CourseViewModel>();
 
-        foreach (var course in courses.Where(c => c.Subscribers.Contains(id)))
+        foreach (var course in courses.Where(c => (c.Subscribers.Contains(id) || c.CreatedBy == id)))
         {
             result.Add(ToViewModel(course));
         }

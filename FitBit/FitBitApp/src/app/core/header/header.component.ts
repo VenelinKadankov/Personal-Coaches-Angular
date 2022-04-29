@@ -32,7 +32,7 @@ export class HeaderComponent {
   logout(): void {
     this.userService.logout().subscribe({
       next: () =>  this.router.navigate(['/']),
-      error: (e) => window.alert(e.message)
+      error: (err) => this.router.navigate(['**', { 'status': err.status }])
     });
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICourse } from 'src/app/Interfaces/course';
+import { UserService } from 'src/app/user/user.service';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -12,14 +13,14 @@ import { CourseService } from '../course.service';
 export class CourseCreateComponent implements OnInit {
 
   createForm: FormGroup;
-  //course: ICourse | undefined | null;
   courseImgs: string[] | undefined | null;
 
   constructor(
     private fb: FormBuilder,
     private courseService: CourseService,
     private router: Router,
-    private route: ActivatedRoute,) {
+    private userService: UserService
+  ) {
     this.createForm = this.fb.group({
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
@@ -28,8 +29,14 @@ export class CourseCreateComponent implements OnInit {
     });
     this.courseImgs = [];
   }
-  
+
   ngOnInit(): void {
+    let user = this.userService.user;
+    if (!user) {
+      this.router.navigate(['/login']);
+    } else if (user && user.role != 'Coach' && user.role != 'Admin') {
+      this.router.navigate(['/']);
+    }
   }
 
   create(): void {
@@ -38,7 +45,6 @@ export class CourseCreateComponent implements OnInit {
     //let courseId = this.route.snapshot.paramMap.get('id');
     let title = this.createForm.value.title;
     let content = this.createForm.value.content;
-    let images = this.createForm.value.images;
 
     this.courseService.createCourse(title, content, this.courseImgs!, []).subscribe({
       next: () => {
@@ -59,7 +65,7 @@ export class CourseCreateComponent implements OnInit {
     }
   }
 
-  includeExcludeImg(image: string, event: any){
+  includeExcludeImg(image: string, event: any) {
     if (event.currentTarget.checked) {
       this.courseImgs?.push(image)
     } else {

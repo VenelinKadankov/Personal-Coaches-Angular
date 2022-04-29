@@ -45,7 +45,7 @@ export class RegisterComponent implements OnDestroy {
           this.router.navigate(['/']);
         },
         error: (err) => {
-          console.error(err);
+          window.alert('The data you have provided is unsufficient or the email is already in use!')
         }
       })
     }

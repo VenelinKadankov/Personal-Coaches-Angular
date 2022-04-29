@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../course.service';
 import { ICourse } from '../../Interfaces/course';
 import { UserService } from 'src/app/user/user.service';
+import { Router } from '@angular/router';
 
 
 
@@ -26,7 +27,7 @@ export class MyCoursesComponent implements OnInit {
   courses: ICourse[] | undefined;
   errorLoadingCourses = false;
 
-  constructor(public courseService: CourseService, public userService: UserService) { }
+  constructor(public courseService: CourseService, public userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadCourses();
@@ -39,9 +40,9 @@ export class MyCoursesComponent implements OnInit {
     this.courseService.getMyCourses(this.userService.user?.userId!)
     .subscribe({
       next: (courses) => { this.courses = courses },
-      error: (error) => {
-        console.log(error);
+      error: (err) => {
         this.errorLoadingCourses = true;
+        this.router.navigate(['**', { 'status': err.status }]);
       },
       complete: () => console.log('load courses stream completed')
     });

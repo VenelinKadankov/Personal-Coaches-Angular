@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
       },
       error: (err) => {
         this.errorLoadingCoaches = true;
-       // this.router.navigate(['**', { 'status': err.status }]);
+        this.router.navigate(['**', { 'status': err.status }]);
       }
     });
   }

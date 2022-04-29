@@ -37,7 +37,8 @@ export class LoginComponent {
           this.router.navigate([redirectUrl]);
         },
         error: (err) => {
-          console.log(err);
+          window.alert('You have not filled correctly all data!');
+         // this.router.navigate(['/login', { 'status': err.status }]);
         }
       })
     }

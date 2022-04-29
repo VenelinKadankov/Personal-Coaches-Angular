@@ -25,7 +25,7 @@ export class DetailsComponent implements OnInit {
     this.courseService.getMyCourses(this.user!.userId).subscribe(
       {
         next: (courses) => this.myCourses = courses,
-       // error: () => this.router.navigate(['/login'])
+        error: () => this.router.navigate(['/login'])
       }
     )
   }
