@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../user.service';
+import { UserService } from '../../core/services/user.service';
 import { sameValueAsFactory } from 'src/app/shared/validators';
 import { Subject } from 'rxjs';
 
@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnDestroy {
+export class RegisterComponent implements OnDestroy, OnInit {
   killSubscription = new Subject();
   registerForm: FormGroup;
 
@@ -48,6 +48,12 @@ export class RegisterComponent implements OnDestroy {
           window.alert('The data you have provided is unsufficient or the email is already in use!')
         }
       })
+    }
+    
+    ngOnInit(): void {
+      if(this.userService.GetToken()){
+        this.router.navigate(['/'])
+      }
     }
 
   ngOnDestroy(): void {

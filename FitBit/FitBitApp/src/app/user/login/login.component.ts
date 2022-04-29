@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { UserService } from '../user.service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
@@ -23,6 +23,12 @@ export class LoginComponent {
         email: ['', [Validators.required]],
         password: ['',[Validators.required]]
       })
+    }
+
+    ngOnInit(): void {
+      if(this.userService.GetToken()){
+        this.router.navigate(['/'])
+      }
     }
 
     login(): void{

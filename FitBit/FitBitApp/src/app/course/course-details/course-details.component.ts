@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { CourseService } from '../course.service';
 import { ICourse } from 'src/app/Interfaces/course';
-import { UserService } from 'src/app/user/user.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-course-details',

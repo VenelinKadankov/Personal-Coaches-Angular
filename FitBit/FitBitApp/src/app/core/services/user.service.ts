@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from "src/environments/environment";
-import { IUser } from '../Interfaces/user';
+import { IUser } from '../../Interfaces/user';
 import { tap } from 'rxjs/operators';
-import { IUserToken } from '../Interfaces/userToken';
+import { IUserToken } from '../../Interfaces/userToken';
 
 const apiURL = environment.apiURL;
 
@@ -118,7 +118,7 @@ export class UserService{
     return this.http.get<IUser[]>(`${apiURL}/user/coaches`, {});
   }
 
-  private GetToken(){
+  GetToken(){
     return localStorage.getItem('token')!;
   }
 }

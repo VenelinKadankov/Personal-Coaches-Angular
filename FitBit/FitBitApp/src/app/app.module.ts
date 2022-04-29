@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { CourseModule } from './course/course.module';
 import { SharedModule } from './shared/shared.module';
-import { UserModule } from './user/user.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NotFoundComponent } from './not-found/not-found/not-found.component';
@@ -25,7 +24,6 @@ import { ErrorComponent } from './error/error/error.component';
     CoreModule,
     SharedModule,
     CourseModule,
-    UserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
   ],

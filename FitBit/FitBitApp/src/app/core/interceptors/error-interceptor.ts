@@ -3,7 +3,7 @@ import { Injectable, Provider } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { UserService } from "src/app/user/user.service";
+import { UserService } from "src/app/core/services/user.service";
 
 import { environment } from '../../../environments/environment';
 const apiUrl = environment.apiURL;
