@@ -4,6 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ICourse } from 'src/app/Interfaces/course';
 import { UserService } from 'src/app/core/services/user.service';
 import { CourseService } from '../course.service';
+import { faL } from '@fortawesome/free-solid-svg-icons';
+import { urlValidator } from 'src/app/shared/validators';
+
+const urlPattern = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
 @Component({
   selector: 'app-course-create',
@@ -14,6 +18,7 @@ export class CourseCreateComponent implements OnInit {
 
   createForm: FormGroup;
   courseImgs: string[] | undefined | null;
+  validUrl: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +30,7 @@ export class CourseCreateComponent implements OnInit {
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
       images: [''],
-      newImg: ['',]
+      newImg: ['', [urlValidator]]
     });
     this.courseImgs = [];
   }
@@ -56,12 +61,18 @@ export class CourseCreateComponent implements OnInit {
     });
   }
 
-  addImg() {
+  addImg(): void {
     let newImg = this.createForm.value.newImg;
+
+    if(!this.checkValidUrl(newImg)){
+      this.validUrl = false;
+      return;
+    }
 
     if (newImg) {
       this.courseImgs?.push(newImg);
       this.createForm.patchValue({ 'newImg': '' })
+      this.validUrl = true;
     }
   }
 
@@ -71,5 +82,17 @@ export class CourseCreateComponent implements OnInit {
     } else {
       this.courseImgs?.splice(this.courseImgs?.indexOf(image), 1);
     }
+  }
+
+  private checkValidUrl(text: string): boolean{
+    let url;
+  
+    try {
+      url = new URL(text);
+    } catch (_) {
+      return false;  
+    }
+  
+    return true;
   }
 }

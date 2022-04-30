@@ -61,6 +61,11 @@
             id="newImg"
             #newImg
           />
+          <ng-container *ngIf="editForm.get('newImg')?.touched">
+            <p *ngIf="editForm.get('newImg')?.errors?.['invalidUrl']" class="error">
+              Image Url is not valid!
+            </p>
+          </ng-container>
           <button class="add-img-btn" type="button" (click)="addImg()">Add</button>
         </div>
       </div>

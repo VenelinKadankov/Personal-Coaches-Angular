@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
-import { sameValueAsFactory } from 'src/app/shared/validators';
+import { sameValueAsFactory, urlValidator } from 'src/app/shared/validators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnDestroy, OnInit {
         name: ['', [Validators.required, Validators.minLength(4)]],
         email: ['', [Validators.required, Validators.email]],
         tel: [''],
-        profileImg: [''],
+        profileImg: ['', [urlValidator]],
         password: ['', [Validators.required, Validators.minLength(4)]],
         rePassword: ['', [Validators.required, sameValueAsFactory(
           () => this.registerForm?.get('password'), this.killSubscription

@@ -1,4 +1,4 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -20,5 +20,13 @@ export function sameValueAsFactory(getTargetControl: () => AbstractControl | nul
       });
 
     return targetControl?.value === control?.value ? null : { sameValue: true }
+  };
+}
+
+export function urlValidator(control: AbstractControl): ValidationErrors | null {
+  if (!control.value) { return null; }
+  // '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
+  return /^(https|http):\/\/[A-z1-9\.]+$/.test(control.value) ? null : {
+    invalidUrl: true
   };
 }
