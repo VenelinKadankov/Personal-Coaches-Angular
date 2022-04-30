@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Inject, Injectable, OnInit } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { tap } from "rxjs";
 
 import { ICourse } from "src/app/Interfaces/course";
@@ -21,11 +21,6 @@ export class CourseService {
   constructor(private http: HttpClient, private userService: UserService) {
     this.course = null;
   }
-
-  //  ngOnInit(): void {
-  //    let courseId = this.route.snapshot.paramMap.get('id')!;
-  //   this.getSingleCourse(courseId);
-  //  }
 
   createCourse(title: string, content: string, images: string[], subscribers: string[]){
     let token = this.GetToken();

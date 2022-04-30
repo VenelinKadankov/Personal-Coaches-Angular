@@ -5,18 +5,6 @@ import { ICourse } from '../../Interfaces/course';
 import { UserService } from 'src/app/user/user.service';
 import { Router } from '@angular/router';
 
-
-
-// reloadButtonHandler() {
-//   this.loadUsers();
-// }
-
-// searchButtonHandler(searchInput: HTMLInputElement): void {
-//   const { value } = searchInput;
-//   this.loadUsers(value);
-// }
-
-
 @Component({
   selector: 'app-my-courses',
   templateUrl: './my-courses.component.html',

@@ -1,4 +1,4 @@
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Injectable, Provider } from "@angular/core";
 import { Router } from "@angular/router";
 import { Observable, throwError } from "rxjs";
@@ -20,7 +20,6 @@ export class errorInterceptor implements HttpInterceptor {
             catchError((err) => {
                 this.router.navigate(['/error'], { queryParams: { error: 'some text' } });//err.message } });
                 return throwError(() => new Error(err));
-               //throw err;
             })
         );
     }

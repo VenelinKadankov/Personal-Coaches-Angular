@@ -30,7 +30,10 @@ export class EditComponent implements  OnInit {
     }
 
     edit(): void {
-      if (this.editForm.invalid) { return; }
+      if (this.editForm.invalid) { 
+        window.alert('Invalid data!');
+        return; 
+      }
       
       let name = this.editForm.value.name;
       let email = this.editForm.value.email;

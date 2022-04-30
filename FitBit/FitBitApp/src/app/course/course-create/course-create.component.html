@@ -41,15 +41,6 @@
         <div class="images-checkboxes">
           <div class="image-container" *ngIf="courseImgs">
             <div *ngFor="let image of courseImgs" class="checkbox-container">
-              <!-- <input
-              class="checkbox-input"
-                type="checkbox"
-                name="images"
-                formControlName="images"
-                checked
-                id="check"
-                (change)="includeExcludeImg(image, $event)"
-              /> -->
               <label for="check" class="label-imgs">{{ image.substring(0, 200) }}</label>
             </div>
           </div>
@@ -75,7 +66,6 @@
           <button type="submit">Create</button>
           <button routerLink='/all-courses'>Cancel</button>
         </div>
-        <!-- <button [routerLink]="['/profile', userId]" type="button">Cancel</button> -->
       </form>
     </div>
   </section>

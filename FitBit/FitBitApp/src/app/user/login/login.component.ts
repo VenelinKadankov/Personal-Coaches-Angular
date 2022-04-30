@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { UserService } from '../user.service';
 
 @Component({
@@ -32,7 +31,10 @@ export class LoginComponent implements OnInit {
     }
 
     login(): void{
-      if(this.loginForm.invalid){ return; }
+      if(this.loginForm.invalid){ 
+        window.alert('Invalid data!');
+        return; 
+      }
 
       let email = this.loginForm.value.email;
       let password = this.loginForm.value.password;
@@ -44,7 +46,6 @@ export class LoginComponent implements OnInit {
         },
         error: (err) => {
           window.alert('You have not filled correctly all data!');
-         // this.router.navigate(['/login', { 'status': err.status }]);
         }
       })
     }

@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ICourse } from 'src/app/Interfaces/course';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/user/user.service';
 import { CourseService } from '../course.service';
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import { urlValidator } from 'src/app/shared/validators';
-
-const urlPattern = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
 @Component({
   selector: 'app-course-create',
@@ -45,9 +41,11 @@ export class CourseCreateComponent implements OnInit {
   }
 
   create(): void {
-    if (this.createForm.invalid) { return; }
+    if (this.createForm.invalid) { 
+      window.alert('Invalid data!');
+      return; 
+    }
 
-    //let courseId = this.route.snapshot.paramMap.get('id');
     let title = this.createForm.value.title;
     let content = this.createForm.value.content;
 

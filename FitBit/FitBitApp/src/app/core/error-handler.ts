@@ -1,4 +1,4 @@
-import { ErrorHandler, Injectable, Provider } from "@angular/core";
+import { ErrorHandler, Provider } from "@angular/core";
 import { Router } from "@angular/router";
 
 class GlobalErrorHandler implements ErrorHandler {

@@ -32,7 +32,7 @@ export class UserService{
     if (email && password) {
       return this.http.post<IUserToken>(`${apiURL}/user/login`,
         { email, password },
-        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(   // 'token': this.jwtToken!,
+        { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(
           tap((user) => {
             this.userWithToken = user;
             this.user = user.user;
@@ -108,7 +108,7 @@ export class UserService{
     let token = this.GetToken();
 
     return this.http.get<IUser>(`${apiURL}/user/profile`, { 
-      headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`})//, 'uid': this.user?.userId! 
+      headers: new HttpHeaders({ 'Authorization': `Bearer ${token}`})
      }).pipe(
       tap((user) => this.user = user)
     );

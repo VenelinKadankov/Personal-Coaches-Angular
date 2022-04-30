@@ -33,13 +33,14 @@ export class CourseEditComponent implements OnInit {
   }
 
   edit(): void {
-    if (this.editForm.invalid) { return; }
+    if (this.editForm.invalid) { 
+      window.alert('Invalid data!');
+      return; }
 
     let title = this.editForm.value.title;
     let content = this.editForm.value.content;
-    let images = this.editForm.value.images;
 
-    this.courseService.update(this.courseId!, title, content, images, this.course?.subscribers!).subscribe({
+    this.courseService.update(this.courseId!, title, content, this.courseImgs!, this.course?.subscribers!).subscribe({
       next: () => {
         this.router.navigate(['/']);
       },

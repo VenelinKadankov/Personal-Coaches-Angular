@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CourseService } from '../course.service';
 import { ICourse } from '../../Interfaces/course';
 import { UserService } from 'src/app/user/user.service';
@@ -37,15 +36,3 @@ export class AllCoursesComponent implements OnInit {
   }
 
 }
-
-
-
-
-// reloadButtonHandler() {
-//   this.loadUsers();
-// }
-
-// searchButtonHandler(searchInput: HTMLInputElement): void {
-//   const { value } = searchInput;
-//   this.loadUsers(value);
-// }

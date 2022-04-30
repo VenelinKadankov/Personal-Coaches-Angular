@@ -31,7 +31,10 @@ export class RegisterComponent implements OnDestroy, OnInit {
     }
 
     register(): void {
-      if (this.registerForm.invalid) { return; }
+      if (this.registerForm.invalid) { 
+        window.alert('Invalid data!');
+        return; 
+      }
       
       let name = this.registerForm.value.name;
       let email = this.registerForm.value.email;

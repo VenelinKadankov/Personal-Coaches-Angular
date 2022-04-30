@@ -2,8 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  /* align-items: center; */
-  /* justify-content: center; */
 }
 
  .user-profile{
@@ -57,7 +55,6 @@
   display: flex;
   flex-direction: column;
   gap:5rem;
-  /* width: 90%; */
 }
 
 .course-card{
@@ -70,7 +67,6 @@
 .course-card button{
 	width: 20%;
 	height: 40px;
-	/* margin: 10px auto; */
 	justify-content: center;
 	display: block;
 	color: #fff;
