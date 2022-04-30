@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {  FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICourse } from 'src/app/Interfaces/course';
+import { urlValidator } from 'src/app/shared/validators';
 import { CourseService } from '../course.service';
 
 @Component({
@@ -27,7 +28,7 @@ export class CourseEditComponent implements OnInit {
       title: ['', [Validators.required]],
       content: ['', [Validators.required]],
       images: [''],
-      newImg: ['',]
+      newImg: ['', [urlValidator]]
     });
   }
 

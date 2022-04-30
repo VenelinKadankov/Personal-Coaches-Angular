@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './core/services/user.service';
+import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +12,12 @@ export class AppComponent implements OnInit {
   constructor(private userService: UserService){}
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe({
-      error: () => {}
-    });
+    let token = localStorage.getItem('token');
+
+    if(token){
+      this.userService.getUser().subscribe({
+        error: () => {}
+      });
+    }
   }
 }

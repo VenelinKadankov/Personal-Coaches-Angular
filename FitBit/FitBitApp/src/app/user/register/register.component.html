@@ -30,6 +30,11 @@
                     <input type="tel" name="tel" placeholder="Telephone" formControlName="tel">
 
                     <input type="profileImg" name="profileImg" placeholder="Image address" formControlName="profileImg">
+                    <ng-container *ngIf="registerForm.get('profileImg')?.touched">
+                      <p *ngIf="registerForm.get('profileImg')?.errors?.['invalidUrl']" class="error">
+                        Image Url is not valid!
+                      </p>
+                    </ng-container>
 
                     <input type="password" name="password" placeholder="Password" formControlName="password">
                     <ng-container *ngIf="registerForm.get('password')?.touched">

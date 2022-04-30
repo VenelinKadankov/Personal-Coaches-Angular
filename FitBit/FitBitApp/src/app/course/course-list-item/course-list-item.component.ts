@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { ICourse } from 'src/app/Interfaces/course';
 import { IUser } from 'src/app/Interfaces/user';
-import { UserService } from 'src/app/core/services/user.service';
+import { UserService } from 'src/app/user/user.service';
 import { CourseService } from '../course.service';
 
 @Component({

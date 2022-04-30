@@ -4,7 +4,7 @@ import { tap } from "rxjs";
 
 import { ICourse } from "src/app/Interfaces/course";
 import { environment } from "src/environments/environment";
-import { UserService } from "../core/services/user.service";
+import { UserService } from "../user/user.service";
 
 const apiURL = environment.apiURL;
 

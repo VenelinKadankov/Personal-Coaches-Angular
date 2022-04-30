@@ -52,7 +52,7 @@ const routes: Routes = [
     data: {
       authenticationRequired: true,
       paramsActivateRedirectUrl: '/login',
-      authenticationFailureRedirectUrl: '/user/login',
+      authenticationFailureRedirectUrl: '/',
     }
   },
   {

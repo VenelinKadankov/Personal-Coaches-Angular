@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { headersInterceptorProvider } from './interceptors/attach-headers-interceptor';
 import { errorInterceptorProvider } from './interceptors/error-interceptor';
 import { globalErrorHandlerProvider } from './error-handler';
-import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -71,8 +70,7 @@ import { UserService } from './services/user.service';
   },
     AuthActivate,
    // headersInterceptorProvider,
-   // globalErrorHandlerProvider,
-   UserService
+   // globalErrorHandlerProvider
   ]
 })
 export class CoreModule { }

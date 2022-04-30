@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
-import { UserService } from 'src/app/core/services/user.service';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-header',

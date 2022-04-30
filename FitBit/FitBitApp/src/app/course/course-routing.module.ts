@@ -67,4 +67,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class CoursesRoutingModule { }
-// export const CoursesRoutingModule = RouterModule.forChild(routes);

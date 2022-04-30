@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NotFoundComponent } from './not-found/not-found/not-found.component';
 import { ErrorComponent } from './error/error/error.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ErrorComponent } from './error/error/error.component';
     CoreModule,
     SharedModule,
     CourseModule,
+    UserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
   ],
